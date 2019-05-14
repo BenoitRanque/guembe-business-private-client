@@ -5,6 +5,7 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
+      'GraphQL'
     ],
 
     css: [
@@ -13,9 +14,9 @@ module.exports = function (ctx) {
 
     extras: [
       'roboto-font',
-      'material-icons' // optional, you are not bound to it
+      // 'material-icons' // optional, you are not bound to it
       // 'ionicons-v4',
-      // 'mdi-v3',
+      'mdi-v3'
       // 'fontawesome-v5',
       // 'eva-icons'
     ],
@@ -36,7 +37,18 @@ module.exports = function (ctx) {
         'QList',
         'QItem',
         'QItemSection',
-        'QItemLabel'
+        'QItemLabel',
+        'QCard',
+        'QCardSection',
+        'QCardActions',
+        'QInnerLoading',
+        'QSpinner',
+        'QDialog',
+        'QBtnDropdown',
+        'QAvatar',
+        'QInput',
+        'QSeparator',
+        'QForm'
       ],
 
       directives: [
@@ -46,9 +58,9 @@ module.exports = function (ctx) {
       // Quasar plugins
       plugins: [
         'Notify'
-      ]
+      ],
 
-      // iconSet: 'ionicons-v4'
+      iconSet: 'mdi-v3'
       // lang: 'de' // Quasar language
     },
 
@@ -56,7 +68,7 @@ module.exports = function (ctx) {
 
     build: {
       scopeHoisting: true,
-      // vueRouterMode: 'history',
+      vueRouterMode: 'history',
       // vueCompiler: true,
       // gzip: true,
       // analyze: true,
