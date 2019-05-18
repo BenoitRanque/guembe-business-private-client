@@ -5,7 +5,8 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'GraphQL'
+      'GraphQL',
+      'AuthGuard'
     ],
 
     css: [
@@ -25,30 +26,38 @@ module.exports = function (ctx) {
       // all: true, // --- includes everything; for dev only!
 
       components: [
-        'QLayout',
-        'QHeader',
+        'QAvatar',
+        'QBtn',
+        'QBtnDropdown',
+        'QCard',
+        'QCardActions',
+        'QCardSection',
+        'QDialog',
         'QDrawer',
-        'QPageContainer',
+        'QForm',
+        'QHeader',
+        'QIcon',
+        'QInnerLoading',
+        'QInput',
+        'QItem',
+        'QItemLabel',
+        'QItemSection',
+        'QLayout',
+        'QList',
         'QPage',
+        'QPageContainer',
+        'QSelect',
+        'QSeparator',
+        'QSpinner',
         'QToolbar',
         'QToolbarTitle',
-        'QBtn',
-        'QIcon',
-        'QList',
-        'QItem',
-        'QItemSection',
-        'QItemLabel',
-        'QCard',
-        'QCardSection',
-        'QCardActions',
-        'QInnerLoading',
-        'QSpinner',
-        'QDialog',
-        'QBtnDropdown',
-        'QAvatar',
-        'QInput',
-        'QSeparator',
-        'QForm'
+        'QPopupProxy',
+        'QDate',
+        'QMarkupTable',
+        'QTooltip',
+        'QUploader',
+        'QImg',
+        'QSpace'
       ],
 
       directives: [
@@ -57,11 +66,12 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'Dialog'
       ],
 
-      iconSet: 'mdi-v3'
-      // lang: 'de' // Quasar language
+      iconSet: 'mdi-v3',
+      lang: 'es' // Quasar language
     },
 
     supportIE: false,

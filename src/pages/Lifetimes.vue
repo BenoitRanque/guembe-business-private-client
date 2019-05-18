@@ -1,5 +1,8 @@
 <template>
   <q-page>
+    <q-btn @click="$router.push('/lifetime')">
+      Crear tiempo de vida nuevo
+    </q-btn>
     <q-list>
       <q-item
         v-for="(lifetime, index) in lifetimes"
@@ -37,6 +40,7 @@ export default {
     async refreshData () {
       const query = /* GraphQL */`query {
         data: calendar_lifetime (order_by: { end: desc }) {
+          lifetime_id
           private_name
           public_name
           description

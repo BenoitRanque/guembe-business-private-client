@@ -1,5 +1,8 @@
 <template>
   <q-page>
+    <q-btn @click="$router.push('/product')">
+      Crear Producto nuevo
+    </q-btn>
     <q-list>
       <q-item
         v-for="(product, index) in products"
@@ -37,6 +40,7 @@ export default {
     async refreshData () {
       const query = /* GraphQL */`query {
         data: store_product (order_by: { created_at: desc }) {
+          product_id
           private_name
           public_name
           description

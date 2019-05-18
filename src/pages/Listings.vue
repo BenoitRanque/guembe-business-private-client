@@ -1,5 +1,8 @@
 <template>
   <q-page>
+    <q-btn @click="$router.push('/listing')">
+      Crear paquete nuevo
+    </q-btn>
     <q-list>
       <q-item
         v-for="(listing, index) in listings"
@@ -37,6 +40,7 @@ export default {
     async refreshData () {
       const query = /* GraphQL */`query {
         data: store_listing (order_by: { created_at: desc }) {
+          listing_id
           private_name
           public_name
           description
