@@ -85,6 +85,13 @@
             </q-item-label>
           </q-item-section>
         </q-item>
+        <q-item to="/clients">
+          <q-item-section>
+            <q-item-label>
+              Clients
+            </q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 

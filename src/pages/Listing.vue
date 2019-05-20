@@ -58,7 +58,7 @@
       <q-list class="col-4">
         <q-item v-for="(image, index) in listing.listing_images" :key="index">
           <q-item-section>
-            <q-img class="rounded-borders" :src="`http://localhost:3000/upload/listing/image/?image_id=${image.image_id}`">
+            <q-img class="rounded-borders" :src="`http://localhost:3000/image/listing/${image.image_id}`">
               <span class="absolute-bottom q-py-sm q-px-md text-white row items-center absolute-position" style="background: rgba(0, 0, 0, 0.47)">
                 <div class="col text-caption">
                   {{image.name}}
@@ -84,16 +84,18 @@
         <q-item>
           <q-item-section>
             <q-uploader
+              multiple
+              hide-upload-btn
+              auto-upload
               label="Aggregar Imagenes"
               class="full-width"
               bordered
               flat
               ref="uploader"
               @finish="loadData"
-              :url="`http://localhost:3000/upload/listing/image/${listingId}`"
+              :url="`http://localhost:3000/image/listing/upload/${listingId}`"
               accept=".jpg, .png, image/*"
               field-name="image"
-              :multiple="false"
               :headers="[{
                 name: 'Authorization',
                 value: `Bearer ${$store.state.credentials.token}`
@@ -212,7 +214,7 @@ export default {
               private_name
             }
           }
-          listing_images {
+          listing_images (order_by: { created_at: desc }) {
             image_id
             name
             highlighted

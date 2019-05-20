@@ -13,7 +13,9 @@ const routes = [
       { path: 'product/:productId', props: true, component: () => import('pages/Product.vue'), meta: { requireAuthentication: true } },
       { path: 'lifetimes', component: () => import('pages/Lifetimes.vue'), meta: { requireAuthentication: true } },
       { path: 'lifetime', component: () => import('pages/CreateLifetime.vue'), meta: { requireAuthentication: true } },
-      { path: 'lifetime/:lifetimeId', props: true, component: () => import('pages/Lifetime.vue'), meta: { requireAuthentication: true } }
+      { path: 'lifetime/:lifetimeId', props: true, component: () => import('pages/Lifetime.vue'), meta: { requireAuthentication: true } },
+      { path: 'clients', component: () => import('pages/Clients.vue'), meta: { requireAuthentication: true } },
+      { path: 'client/:clientId', props: true, component: () => import('pages/Client.vue'), meta: { requireAuthentication: true } }
     ]
   }
 ]
