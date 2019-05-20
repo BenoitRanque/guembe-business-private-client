@@ -34,7 +34,7 @@ export default {
           end
           lifetime_weekdays {
             weekday {
-              weekday_name
+              description
             }
           }
           created_at

@@ -57,7 +57,9 @@ module.exports = function (ctx) {
         'QTooltip',
         'QUploader',
         'QImg',
-        'QSpace'
+        'QSpace',
+        'QCheckbox',
+        'QTable'
       ],
 
       directives: [

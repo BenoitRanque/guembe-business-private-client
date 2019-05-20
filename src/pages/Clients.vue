@@ -1,5 +1,6 @@
 <template>
   <q-page padding>
+    <q-btn @click="$router.push('/client')">Identificar cliente</q-btn>
     <q-list>
       <q-item v-for="(client, index) in clients" :key="index" :to="`/client/${client.client_id}`">
         <q-item-section>

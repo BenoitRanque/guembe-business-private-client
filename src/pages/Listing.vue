@@ -85,7 +85,6 @@
           <q-item-section>
             <q-uploader
               multiple
-              hide-upload-btn
               auto-upload
               label="Aggregar Imagenes"
               class="full-width"

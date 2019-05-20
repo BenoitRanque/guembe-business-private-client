@@ -64,6 +64,13 @@
     >
       <q-list>
         <q-item-label header>Essential Links</q-item-label>
+        <q-item to="/holidays">
+          <q-item-section>
+            <q-item-label>
+              Holidays
+            </q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item to="/lifetimes">
           <q-item-section>
             <q-item-label>

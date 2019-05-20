@@ -1,6 +1,6 @@
 <template>
   <q-page padding class="">
-    <q-form @submit="submit" @reset="reset" autofocus class="q-gutter-md" style="max-width: 600px">
+    <q-form @submit="submit" @reset="reset" class="q-gutter-md" style="max-width: 600px">
       <q-input
         filled
         label="Nombre Privado"
@@ -13,34 +13,28 @@
       ></q-input>
       <q-input
         filled
+        required
         label="Nombre Publico"
         hint="Nombre de uso publico"
         v-model="lifetime.public_name"
-        lazy-rules
-        :rules="[
-          value => value && value.length > 0 ? true : 'Campo Obligatorio'
-        ]"
       ></q-input>
       <q-input
         filled
+        required
         type="textarea"
         label="Descripcion"
         hint="Descripcion detallada. Uso publico & interno"
         v-model="lifetime.description"
-        lazy-rules
-        :rules="[
-          value => value && value.length > 0 ? true : 'Campo Obligatorio'
-        ]"
       ></q-input>
       <q-input
         filled
+        required
         v-model="lifetime.start"
         label="Inicio de tiempo de vida"
         hint="El tiempo de vida sera valido a partir de esta fecha"
         lazy-rules
         mask="date"
         :rules="[
-          value => value !== null ? true : 'Campo Obligatorio',
           'date'
         ]"
       >
@@ -85,6 +79,9 @@
           value => value.length > 0 ? true : 'Debe selecionar algunos dias de validez'
         ]"
       ></q-select>
+      <div>
+        <q-checkbox v-model="lifetime.include_holidays" label="Incluye Feriados"></q-checkbox>
+      </div>
 
       <q-btn color="primary" type="submit">submit</q-btn>
       <q-btn color="secondary" flat type="reset">reset</q-btn>
@@ -110,7 +107,8 @@ export default {
         description: '',
         lifetime_weekdays: [],
         start: null,
-        end: null
+        end: null,
+        include_holidays: false
       }
     }
   },
@@ -122,6 +120,7 @@ export default {
       this.lifetime.lifetime_weekdays = []
       this.lifetime.start = null
       this.lifetime.end = null
+      this.lifetime.include_holidays = false
     },
     submit () {
       this.$q.dialog({
@@ -168,7 +167,7 @@ export default {
       const query = /* GraphQL */`query {
         weekdays: calendar_weekday {
           value: weekday_id
-          label: weekday_name
+          label: description
         }
       }`
       const variables = {}
