@@ -27,6 +27,7 @@ module.exports = function (ctx) {
 
       components: [
         'QAvatar',
+        'QBar',
         'QBtn',
         'QBtnDropdown',
         'QCard',
@@ -59,11 +60,15 @@ module.exports = function (ctx) {
         'QImg',
         'QSpace',
         'QCheckbox',
-        'QTable'
+        'QTable',
+        'QTh',
+        'QTr',
+        'QTd'
       ],
 
       directives: [
-        'Ripple'
+        'Ripple',
+        'ClosePopup'
       ],
 
       // Quasar plugins

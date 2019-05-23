@@ -1,6 +1,10 @@
 <template>
   <q-page padding>
-    <q-btn @click="$router.push(`/client/${clientId}/products/usable`)">Ver Productos utilizables</q-btn>
+    <q-btn @click="$router.push(`/client/${clientId}/purchasedproducts/usable`)">Ver Productos utilizables</q-btn>
+    <q-btn @click="$router.push(`/client/${clientId}/purchasedproducts/use`)">Ver Productos utilizados</q-btn>
+    <q-btn @click="$router.push(`/client/${clientId}/purchasedproducts`)">Ver Productos comprados</q-btn>
+    <q-btn @click="$router.push(`/client/${clientId}/purchases`)">Ver compras</q-btn>
+    <q-btn @click="$router.push(`/client/${clientId}/invoices`)">Ver facturas</q-btn>
     <pre>{{client}}</pre>
   </q-page>
 </template>

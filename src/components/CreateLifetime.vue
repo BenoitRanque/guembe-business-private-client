@@ -1,8 +1,9 @@
 <template>
-  <q-page padding class="">
-    <q-form @submit="submit" @reset="reset" class="q-gutter-md" style="max-width: 600px">
+  <q-form @submit="submit" @reset="reset">
+    <div class="q-gutter-md q-pa-md">
       <q-input
         filled
+        required
         label="Nombre Privado"
         hint="Nombre de uso interno"
         v-model="lifetime.private_name"
@@ -30,8 +31,8 @@
         filled
         required
         v-model="lifetime.start"
-        label="Inicio de tiempo de vida"
-        hint="El tiempo de vida sera valido a partir de esta fecha"
+        label="Inicio de vigencia"
+        hint="El vigencia sera valido a partir de esta fecha"
         lazy-rules
         mask="date"
         :rules="[
@@ -49,8 +50,8 @@
       <q-input
         filled
         v-model="lifetime.end"
-        label="Fin de tiempo de vida"
-        hint="El tiempo de vida sera valido hasta esta fecha"
+        label="Fin de vigencia"
+        hint="El vigencia sera valido hasta esta fecha"
         lazy-rules
         mask="date"
         :rules="[
@@ -70,7 +71,7 @@
       <q-select
         filled
         label="Dias de validez"
-        hint="El tiempo de vida sera valido para estos dias"
+        hint="La vigencia sera valida para estos dias"
         v-model="lifetime.lifetime_weekdays"
         :options="options.weekdays"
         multiple
@@ -79,17 +80,18 @@
           value => value.length > 0 ? true : 'Debe selecionar algunos dias de validez'
         ]"
       ></q-select>
-      <div>
-        <q-checkbox v-model="lifetime.include_holidays" label="Incluye Feriados"></q-checkbox>
-      </div>
+      <q-checkbox v-model="lifetime.include_holidays" label="Incluye Feriados"></q-checkbox>
+    </div>
 
-      <q-btn color="primary" type="submit">submit</q-btn>
+    <q-separator></q-separator>
+    <div class="row justify-around q-pa-md">
       <q-btn color="secondary" flat type="reset">reset</q-btn>
-      <q-inner-loading :showing="loading">
-        <q-spinner></q-spinner>
-      </q-inner-loading>
-    </q-form>
-  </q-page>
+      <q-btn color="primary" type="submit">Crear</q-btn>
+    </div>
+    <q-inner-loading :showing="loading">
+      <q-spinner></q-spinner>
+    </q-inner-loading>
+  </q-form>
 </template>
 
 <script>
@@ -155,7 +157,7 @@ export default {
 
         const { insert: { lifetimes: [ { id, name } ] } } = await this.$gql(query, variables, { role: 'administrator' })
 
-        this.$q.notify({ icon: 'mdi-check', color: 'positive', message: `Tiempo de Vida ${name} Creado Exitosamente` })
+        this.$q.notify({ icon: 'mdi-check', color: 'positive', message: `Vigencia ${name} Creada Exitosamente` })
         this.$router.push(`/lifetime/${id}`)
       } catch (error) {
         this.$gql.handleError(error)

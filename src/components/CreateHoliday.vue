@@ -1,6 +1,6 @@
 <template>
-  <q-page padding>
-    <q-form @submit="submit" @reset="reset" class="q-gutter-md" style="max-width: 600px">
+  <q-form @submit="submit" @reset="reset">
+    <div class="q-gutter-md q-pa-md">
       <q-input
         filled
         required
@@ -44,14 +44,17 @@
           </q-icon>
         </template>
       </q-input>
+    </div>
 
-      <q-btn color="primary" type="submit">submit</q-btn>
+    <q-separator></q-separator>
+    <div class="row justify-around q-pa-md">
       <q-btn color="secondary" flat type="reset">reset</q-btn>
-      <q-inner-loading :showing="loading">
-        <q-spinner></q-spinner>
-      </q-inner-loading>
-    </q-form>
-  </q-page>
+      <q-btn color="primary" type="submit">Crear</q-btn>
+    </div>
+    <q-inner-loading :showing="loading">
+      <q-spinner></q-spinner>
+    </q-inner-loading>
+  </q-form>
 </template>
 
 <script>

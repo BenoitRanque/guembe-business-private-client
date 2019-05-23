@@ -1,7 +1,7 @@
 <template>
-  <q-page>
-    <q-btn @click="$router.push('/lifetime')">
-      Crear tiempo de vida nuevo
+  <q-page padding>
+    <q-btn  color="accent" @click="showCreateLifetimeDialog = true">
+      Crear vigencia nueva
     </q-btn>
     <q-list>
       <q-item
@@ -23,15 +23,25 @@
     <q-inner-loading :showing="loading">
       <q-spinner></q-spinner>
     </q-inner-loading>
+    <dialog-window v-model="showCreateLifetimeDialog">
+      <template v-slot:title>
+        Crear Vigencia
+      </template>
+      <create-lifetime></create-lifetime>
+    </dialog-window>
   </q-page>
 </template>
 
 <script>
+import DialogWindow from 'components/DialogWindow'
+import CreateLifetime from 'components/CreateLifetime'
 
 export default {
   name: 'Lifetimes',
+  components: { CreateLifetime, DialogWindow },
   data () {
     return {
+      showCreateLifetimeDialog: false,
       lifetimes: [],
       loading: false
     }

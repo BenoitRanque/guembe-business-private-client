@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-btn @click="$router.push('/listing')">
+    <q-btn @click="showCreateListingDialog = true">
       Crear paquete nuevo
     </q-btn>
     <q-list>
@@ -23,15 +23,26 @@
     <q-inner-loading :showing="loading">
       <q-spinner></q-spinner>
     </q-inner-loading>
+
+    <dialog-window v-model="showCreateListingDialog">
+      <template v-slot:title>
+        Crear Paquete
+      </template>
+      <create-listing></create-listing>
+    </dialog-window>
   </q-page>
 </template>
 
 <script>
+import DialogWindow from 'components/DialogWindow'
+import CreateListing from 'components/CreateListing'
 
 export default {
   name: 'Listings',
+  components: { DialogWindow, CreateListing },
   data () {
     return {
+      showCreateListingDialog: false,
       listings: [],
       loading: false
     }

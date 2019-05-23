@@ -1,11 +1,11 @@
 <template>
-  <q-page padding class="">
-    <div class="text-h6 q-py-md row">
-      Creacion de paquete
-      <q-space></q-space>
-      Bs {{listing.listing_products.reduce((subtotal, { price, quantity }) => subtotal + ((getPriceAsNumber(price) / 100)* quantity), 0).toFixed(2)}}
-    </div>
-    <q-form @submit="submit" @reset="reset" class="q-gutter-y-md">
+  <q-form @submit="submit" @reset="reset">
+    <div class="q-gutter-md q-pa-md">
+      <div class="text-subtitle2 row">
+        Creacion de paquete
+        <q-space></q-space>
+        Bs {{listing.listing_products.reduce((subtotal, { price, quantity }) => subtotal + ((getPriceAsNumber(price) / 100)* quantity), 0).toFixed(2)}}
+      </div>
       <q-input
         filled
         label="Nombre Privado"
@@ -15,6 +15,7 @@
         lazy-rules
         :rules="[]"
       ></q-input>
+
       <q-input
         filled
         label="Nombre Publico"
@@ -88,7 +89,6 @@
           value => value === null || value === '' || Number(value) > 0 ? true : 'Stock disponible deber ser nulo o mayor que 0'
         ]"
       ></q-input>
-
       <q-markup-table flat dense style="table-layout: fixed;">
         <thead>
           <tr>
@@ -182,13 +182,16 @@
           </tr>
         </tbody>
       </q-markup-table>
-      <q-btn color="primary" type="submit">submit</q-btn>
+    </div>
+    <q-separator></q-separator>
+    <div class="row justify-around q-pa-md">
       <q-btn color="secondary" flat type="reset">reset</q-btn>
-      <q-inner-loading :showing="loading">
-        <q-spinner></q-spinner>
-      </q-inner-loading>
-    </q-form>
-  </q-page>
+      <q-btn color="primary" type="submit">crear</q-btn>
+    </div>
+    <q-inner-loading :showing="loading">
+      <q-spinner></q-spinner>
+    </q-inner-loading>
+  </q-form>
 </template>
 
 <script>

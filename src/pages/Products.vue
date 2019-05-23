@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-btn @click="$router.push('/product')">
+    <q-btn @click="showCreateProductDialog = true">
       Crear Producto nuevo
     </q-btn>
     <q-list>
@@ -23,15 +23,26 @@
     <q-inner-loading :showing="loading">
       <q-spinner></q-spinner>
     </q-inner-loading>
+
+    <dialog-window v-model="showCreateProductDialog">
+      <template v-slot:title>
+        Crear Producto
+      </template>
+      <create-product></create-product>
+    </dialog-window>
   </q-page>
 </template>
 
 <script>
+import DialogWindow from 'components/DialogWindow'
+import CreateProduct from 'components/CreateProduct'
 
 export default {
   name: 'Products',
+  components: { DialogWindow, CreateProduct },
   data () {
     return {
+      showCreateProductDialog: false,
       products: [],
       loading: false
     }

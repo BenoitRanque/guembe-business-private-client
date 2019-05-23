@@ -63,39 +63,67 @@
       content-class="bg-grey-2"
     >
       <q-list>
-        <q-item-label header>Essential Links</q-item-label>
+        <q-item-label header>Menu principal</q-item-label>
         <q-item to="/holidays">
           <q-item-section>
             <q-item-label>
-              Holidays
+              Feriados
             </q-item-label>
           </q-item-section>
         </q-item>
         <q-item to="/lifetimes">
           <q-item-section>
             <q-item-label>
-              Lifetimes
+              Vigencias
             </q-item-label>
           </q-item-section>
         </q-item>
         <q-item to="/products">
           <q-item-section>
             <q-item-label>
-              Products
+              Productos
             </q-item-label>
           </q-item-section>
         </q-item>
         <q-item to="/listings">
           <q-item-section>
             <q-item-label>
-              Listings
+              Paquetes
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/invoices">
+          <q-item-section>
+            <q-item-label>
+              Facturas
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/purchases">
+          <q-item-section>
+            <q-item-label>
+              Compras
             </q-item-label>
           </q-item-section>
         </q-item>
         <q-item to="/clients">
           <q-item-section>
             <q-item-label>
-              Clients
+              Clientes
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/purchasedproducts" exact>
+          <q-item-section>
+            <q-item-label>
+              Productos Comprados
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/purchasedproducts/use">
+          <q-item-section>
+            <q-item-label>
+              Uso de productos Comprados
             </q-item-label>
           </q-item-section>
         </q-item>

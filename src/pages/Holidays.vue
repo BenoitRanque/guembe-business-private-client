@@ -1,15 +1,26 @@
 <template>
   <q-page>
-    <q-btn @click="$router.push('/holiday')">Crear Feriado nuevo</q-btn>
+    <q-btn @click="showCreateHolidayDialog = true">Crear Feriado nuevo</q-btn>
     <pre>{{holidays}}</pre>
+    <dialog-window v-model="showCreateHolidayDialog">
+      <template v-slot:title>
+        Crear Feriado
+      </template>
+      <create-holiday class="scroll"></create-holiday>
+    </dialog-window>
   </q-page>
 </template>
 
 <script>
+import CreateHoliday from 'components/CreateHoliday'
+import DialogWindow from 'components/DialogWindow'
+
 export default {
   name: 'Holidays',
+  components: { CreateHoliday, DialogWindow },
   data () {
     return {
+      showCreateHolidayDialog: false,
       loading: false,
       holidays: []
     }

@@ -1,35 +1,36 @@
 <template>
-  <q-page padding class="">
-    <q-form @submit="submit" @reset="reset" autofocus class="q-gutter-md" style="max-width: 600px">
+  <q-form @submit="submit" @reset="reset">
+    <div class="qgutter-md q-pa-md">
+
       <q-input
         filled
+        required
         label="Nombre Privado"
         hint="Nombre de uso interno"
         v-model="product.private_name"
         lazy-rules
         :rules="[
-          value => value && value.length > 0 ? true : 'Campo Obligatorio'
         ]"
       ></q-input>
       <q-input
         filled
+        required
         label="Nombre Publico"
         hint="Nombre de uso publico"
         v-model="product.public_name"
         lazy-rules
         :rules="[
-          value => value && value.length > 0 ? true : 'Campo Obligatorio'
         ]"
       ></q-input>
       <q-input
         filled
+        required
         type="textarea"
         label="Descripcion"
         hint="Descripcion detallada. Uso publico & interno"
         v-model="product.description"
         lazy-rules
         :rules="[
-          value => value && value.length > 0 ? true : 'Campo Obligatorio'
         ]"
       ></q-input>
       <q-input
@@ -42,23 +43,25 @@
       ></q-input>
       <q-select
         filled
+        required
         label="Actividad Economica"
         hint="Rubro del producto"
         v-model="product.economic_activity_id"
         :options="options.economic_activity"
         lazy-rules
         :rules="[
-          value => value !== null ? true : 'Campo Obligatorio'
         ]"
       ></q-select>
-
-      <q-btn color="primary" type="submit">submit</q-btn>
+    </div>
+    <q-separator></q-separator>
+    <div class="row justify-around q-pa-md">
       <q-btn color="secondary" flat type="reset">reset</q-btn>
-      <q-inner-loading :showing="loading">
-        <q-spinner></q-spinner>
-      </q-inner-loading>
-    </q-form>
-  </q-page>
+      <q-btn color="primary" type="submit">Crear</q-btn>
+    </div>
+    <q-inner-loading :showing="loading">
+      <q-spinner></q-spinner>
+    </q-inner-loading>
+  </q-form>
 </template>
 
 <script>

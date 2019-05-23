@@ -1,15 +1,24 @@
 <template>
-  <q-page padding>
-    <q-form @submit="submit" @reset="reset" class="q-gutter-md" style="max-width: 600px">
-      <q-input filled v-model="token" required></q-input>
-
-      <q-btn color="primary" type="submit">submit</q-btn>
-      <q-btn color="secondary" flat type="reset">reset</q-btn>
-      <q-inner-loading :showing="loading">
-        <q-spinner></q-spinner>
-      </q-inner-loading>
+  <q-card style="width: 260px">
+    <q-bar>
+      Identificar Cliente
+      <q-space />
+      <q-btn flat dense icon="mdi-close" v-close-popup></q-btn>
+    </q-bar>
+    <q-form @submit="submit" @reset="reset" autofocus>
+      <q-card-section>
+        <q-input label="Codigo O Token Cliente" filled v-model="token" required></q-input>
+      </q-card-section>
+      <q-separator></q-separator>
+      <q-card-actions align="around">
+        <!-- <q-btn color="secondary" flat type="reset">Restablecer</q-btn> -->
+        <q-btn color="primary" type="submit">Identificar</q-btn>
+      </q-card-actions>
     </q-form>
-  </q-page>
+    <q-inner-loading :showing="loading">
+      <q-spinner></q-spinner>
+    </q-inner-loading>
+  </q-card>
 </template>
 
 <script>

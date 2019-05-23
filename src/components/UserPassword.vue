@@ -1,10 +1,15 @@
 <template>
   <q-card>
+    <q-bar>
+      Cambiar contraseña
+      <q-space />
+      <q-btn flat dense icon="mdi-close" v-close-popup></q-btn>
+    </q-bar>
     <q-form>
       <q-card-section>
-        <div class="text-h6 text-center">
+        <!-- <div class="text-h6 text-center">
           Cambiar contraseña
-        </div>
+        </div> -->
         <div class="text-subtitle2 text-center">
           Su contraseña debe tener un minimo de 12 carácteres
         </div>
