@@ -28,7 +28,7 @@
             size="sm"
             label="Compras"
             icon-right="mdi-open-in-new"
-            @click="$router.push(`/client/${props.row.client_id}`)"
+            @click="$router.push(`/client/${props.row.client_id}/purchases`)"
           />
           <q-tooltip>
             Ver compras
@@ -44,7 +44,7 @@
             size="sm"
             label="Productos Comprados"
             icon-right="mdi-open-in-new"
-            @click="$router.push(`/client/${props.row.client_id}`)"
+            @click="$router.push(`/client/${props.row.client_id}/purchasedproducts`)"
           />
           <q-tooltip>
             Ver productos comprados
@@ -60,7 +60,7 @@
             size="sm"
             label="Uso de Productos"
             icon-right="mdi-open-in-new"
-            @click="$router.push(`/client/${props.row.client_id}`)"
+            @click="$router.push(`/client/${props.row.client_id}/purchasedproducts/use`)"
           />
           <q-tooltip>
             Ver uso de productos
