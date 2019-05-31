@@ -5,7 +5,7 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'GraphQL',
+      'API',
       'AuthGuard'
     ],
 
@@ -74,7 +74,8 @@ module.exports = function (ctx) {
       // Quasar plugins
       plugins: [
         'Notify',
-        'Dialog'
+        'Dialog',
+        'Cookies'
       ],
 
       iconSet: 'mdi-v3',

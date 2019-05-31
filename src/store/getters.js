@@ -1,10 +1,10 @@
 export function isAuthenticated (state) {
-  return state.credentials !== null
+  return state.session !== null
 }
 
 export function userId (state, { isAuthenticated }) {
   if (!isAuthenticated) {
     return null
   }
-  return state.credentials.account.user_id
+  return state.session.user_id
 }

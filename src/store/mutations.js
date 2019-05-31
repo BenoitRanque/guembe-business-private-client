@@ -1,11 +1,7 @@
-export function REGISTER_CREDENTIALS (state, payload = {}) {
-  if (!payload.token || !payload.account) {
-    throw new Error(`Expected payload with properties: token, account. Got ${JSON.stringify(payload)}`)
-  }
-  const { token, account } = payload
-  state.credentials = { token, account }
+export function LOGIN (state, session) {
+  state.session = session
 }
 
-export function DESTROY_CREDENTIALS (state) {
-  state.credentials = null
+export function LOGOUT (state) {
+  state.session = null
 }

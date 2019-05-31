@@ -42,12 +42,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['authenticate']),
+    ...mapActions(['LOGIN']),
     async login () {
       try {
         this.loading = true
 
-        await this.authenticate({ username: this.username, password: this.password })
+        await this.LOGIN({ username: this.username, password: this.password })
 
         this.$q.notify({ icon: 'mdi-check', color: 'positive', message: 'Session Iniciada' })
 

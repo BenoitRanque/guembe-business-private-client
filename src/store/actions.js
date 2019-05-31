@@ -1,27 +1,30 @@
-export async function authenticate ({ commit }, { username, password }) {
-  const query = /* GraphQL */`query ($username: String! $password: String!) {
-    credentials: staff_authentication (username: $username password: $password) {
-      token
-      account {
-        user_id
-        username
-        roles
-      }
-    }
-  }`
+import { Cookies } from 'quasar'
 
-  const variables = {
-    username,
-    password
-  }
-
-  const { credentials } = await this.$router.app.$gql(query, variables)
-
-  commit('REGISTER_CREDENTIALS', credentials)
-
-  return credentials
+export async function LOGIN ({ dispatch }, { username, password }) {
+  const { data: session } = await this.$router.app.$api.post('/auth/login', { username, password })
+  console.log(session)
+  Cookies.set('session-auth', session)
+  dispatch('RESTORE_SESSION')
 }
 
-export async function logout ({ commit }) {
-  commit('DESTROY_CREDENTIALS')
+export async function LOGOUT ({ commit }) {
+  commit('LOGOUT')
+}
+
+export function RESTORE_SESSION ({ commit }) {
+  const sessionCookie = Cookies.get('session-auth')
+
+  if (!sessionCookie) {
+    return
+  }
+
+  const token = sessionCookie.split('.')[1]
+
+  if (!token) {
+    throw new Error('Unexpected format for session cookie')
+  }
+
+  const session = JSON.parse(atob(token))
+
+  commit('LOGIN', session.ses)
 }
