@@ -1,9 +1,8 @@
-import { Cookies } from 'quasar'
+import { SessionStorage } from 'quasar'
 
 export async function LOGIN ({ dispatch }, { username, password }) {
   const { data: session } = await this.$router.app.$api.post('/auth/login', { username, password })
-  console.log(session)
-  Cookies.set('session-auth', session)
+  SessionStorage.set('session-auth', session)
   dispatch('RESTORE_SESSION')
 }
 
@@ -12,11 +11,13 @@ export async function LOGOUT ({ commit }) {
 }
 
 export function RESTORE_SESSION ({ commit }) {
-  const sessionCookie = Cookies.get('session-auth')
+  const sessionCookie = SessionStorage.getItem('session-auth')
 
   if (!sessionCookie) {
     return
   }
+
+  console.log(sessionCookie)
 
   const token = sessionCookie.split('.')[1]
 

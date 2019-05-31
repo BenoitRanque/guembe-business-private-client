@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="row q-col-gutter-md">
+    <div class="row q-col-gutter-md" v-if="listing">
       <div class="col-8">
         <div class="text-h6">
           {{listing.private_name}}
@@ -58,7 +58,7 @@
       <q-list class="col-4">
         <q-item v-for="(image, index) in listing.listing_images" :key="index">
           <q-item-section>
-            <q-img class="rounded-borders" :src="`http://localhost:3000/image/listing/${image.image_id}`">
+            <q-img class="rounded-borders" :src="`https://chuturubi.com/api/v1/image/listing/${image.image_id}`">
               <span class="absolute-bottom q-py-sm q-px-md text-white row items-center absolute-position" style="background: rgba(0, 0, 0, 0.47)">
                 <div class="col text-caption">
                   {{image.name}}
@@ -86,18 +86,19 @@
             <q-uploader
               multiple
               auto-upload
+              with-credentials
               label="Aggregar Imagenes"
               class="full-width"
               bordered
               flat
               ref="uploader"
               @finish="loadData"
-              :url="`http://localhost:3000/image/listing/upload/${listingId}`"
+              :url="`https://chuturubi.com/api/v1/image/listing/upload/${listingId}`"
               accept=".jpg, .png, image/*"
               field-name="image"
-              :headers="[{
+              :headers="() => [{
                 name: 'Authorization',
-                value: `Bearer ${$store.state.credentials.token}`
+                value: `session-auth ${$q.sessionStorage.getItem('session-auth')}`
               }]"
             >
             </q-uploader>

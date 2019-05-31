@@ -184,11 +184,11 @@ export default {
         where: {
           client_id: !this.clientId ? null : { _eq: this.clientId },
           _or: !filter ? [{}] : [
-            { client: !filter ? null : { name: { _ilike: `%${filter}%` } } },
-            { purchase_listings: { listing: { public_name: { _ilike: `%${filter}%` } } } },
-            { purchase_listings: { listing: { description: { _ilike: `%${filter}%` } } } },
-            { purchase_listings: { listing: { listing_products: { product: { public_name: { _ilike: `%${filter}%` } } } } } },
-            { purchase_listings: { listing: { listing_products: { product: { description: { _ilike: `%${filter}%` } } } } } }
+            { client: { name: { _ilike: `%${filter}%` } } },
+            { purchase: { purchase_listings: { listing: { public_name: { _ilike: `%${filter}%` } } } } },
+            { purchase: { purchase_listings: { listing: { description: { _ilike: `%${filter}%` } } } } },
+            { purchase: { purchase_listings: { listing: { listing_products: { product: { public_name: { _ilike: `%${filter}%` } } } } } } },
+            { purchase: { purchase_listings: { listing: { listing_products: { product: { description: { _ilike: `%${filter}%` } } } } } } }
           ]
         }
       }

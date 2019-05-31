@@ -38,7 +38,7 @@
                 </q-item-section>
               </q-item>
               <q-separator></q-separator>
-              <q-item clickable @click="logout(), $router.push('/')">
+              <q-item clickable @click="LOGOUT(), $router.push('/')">
                 <q-item-section side>
                   <q-icon name="mdi-logout"></q-icon>
                 </q-item-section>
@@ -174,7 +174,7 @@ export default {
     ...mapGetters(['isAuthenticated'])
   },
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions(['LOGOUT']),
     authenticationRequested () {
       this.showLoginDialog = true
     }

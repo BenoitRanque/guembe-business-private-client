@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Notify } from 'quasar'
+import { Notify, SessionStorage } from 'quasar'
 
 class GraphQLError {
   constructor ({ query, variables, errors }) {
@@ -56,18 +56,16 @@ export default ({ app, router, store, Vue }) => {
   const api = axios.create({
     baseURL: 'https://chuturubi.com/api/v1',
     timeout: 1000,
-    xsrfCookieName: 'XSRF-TOKEN', // default
-    xsrfHeaderName: 'X-XSRF-TOKEN', // default
     withCredentials: true
   })
 
   api.interceptors.request.use(async request => {
-    console.log('making request...')
-    // if there is no XSRF token, make a request to the dedicated endpoint
-    if (!document.cookie['XSRF-TOKEN'] && !/\/csrftoken$/.test(request.url)) {
-      // this request has an empty response (http 204)
-      await api('/csrftoken')
+    const sessionCookie = SessionStorage.getItem('session-auth')
+
+    if (sessionCookie) {
+      request.headers['Authorization'] = `session-auth ${sessionCookie}`
     }
+
     return request
   }, async error => Promise.reject(error))
 
