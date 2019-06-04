@@ -1,6 +1,6 @@
 <template>
   <q-form @submit="submit" @reset="reset">
-    <div class="qgutter-md q-pa-md">
+    <div class="q-gutter-md q-pa-md">
 
       <q-input
         filled
