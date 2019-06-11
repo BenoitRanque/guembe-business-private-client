@@ -27,7 +27,10 @@ const routes = [
       { path: 'client/:clientId/purchases', props: true, component: () => import('pages/Purchases.vue'), meta: { requireAuthentication: true } },
       { path: 'client/:clientId/purchasedproducts', props: true, component: () => import('pages/PurchasedProducts.vue'), meta: { requireAuthentication: true } },
       { path: 'client/:clientId/purchasedproducts/usable', props: true, component: () => import('pages/PurchasedProductUsable.vue'), meta: { requireAuthentication: true } },
-      { path: 'client/:clientId/purchasedproducts/use', props: true, component: () => import('pages/PurchasedProductUse.vue'), meta: { requireAuthentication: true } }
+      { path: 'client/:clientId/purchasedproducts/use', props: true, component: () => import('pages/PurchasedProductUse.vue'), meta: { requireAuthentication: true } },
+
+      { path: 'website', props: true, component: () => import('pages/Website.vue'), meta: { requireAuthentication: true } },
+      { path: 'website/test/:path(.*)?', props: true, component: () => import('pages/WebsitePage.vue'), meta: { requireAuthentication: true } }
     ]
   }
 ]

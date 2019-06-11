@@ -17,7 +17,7 @@
         <q-separator vertical inset />
         <!-- <q-space></q-space> -->
         <q-toolbar-title>
-          Biocentro Guembe
+          Biocentro Guembe {{$route.path}}
         </q-toolbar-title>
 
         <q-separator vertical inset />
@@ -124,6 +124,13 @@
           <q-item-section>
             <q-item-label>
               Uso de productos Comprados
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/website">
+          <q-item-section>
+            <q-item-label>
+              Website
             </q-item-label>
           </q-item-section>
         </q-item>
