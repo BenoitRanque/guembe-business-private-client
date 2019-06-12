@@ -1,3 +1,4 @@
-export default {
-  session: null
-}
+export default () => ({
+  session: null,
+  message: null
+})

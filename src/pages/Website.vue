@@ -31,7 +31,7 @@
             no-caps
             :label="`/${props.row.path}`"
             icon-right="mdi-open-in-new"
-            @click="$router.push(`/website/test/${props.row.path}`)"
+            @click="$router.push(`/website/preview/${props.row.path}`)"
           />
           <q-tooltip>
             Ver o modificar pagina
@@ -62,7 +62,7 @@
       <template v-slot:title>
         Crear Pagina
       </template>
-      <create-page />
+      <create-page @done="page => $router.push(`/website/preview/${page.path}`)" />
     </dialog-window>
   </q-page>
 </template>

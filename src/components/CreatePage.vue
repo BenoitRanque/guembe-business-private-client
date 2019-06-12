@@ -66,30 +66,13 @@ export default {
       }).onOk(this.createPage)
     },
     async createPage () {
-      const query = /* GraphQL */`mutation ($objects: [website_page_insert_input!]!) {
-        insert: insert_website_page (objects: $objects) {
-          affected_rows
-          page: returning {
-            id: page_id
-            name
-            path
-          }
-        }
-      }`
-
-      const variables = {
-        objects: {
-          ...this.page
-        }
-      }
-
       try {
         this.loading = true
 
-        const { insert: { page: [ { name, path } ] } } = await this.$gql(query, variables, { role: 'administrator' })
+        const { insert: { page: [ page ] } } = await this.$store.dispatch('website/CREATE_PAGE', this.page)
 
-        this.$q.notify({ icon: 'mdi-check', color: 'positive', message: `Pagina ${name} Creada Exitosamente` })
-        this.$router.push(`/website/${path}`)
+        this.$q.notify({ icon: 'mdi-check', color: 'positive', message: `Pagina ${page.name} Creada Exitosamente` })
+        this.$emit('done', page)
       } catch (error) {
         this.$gql.handleError(error)
       } finally {

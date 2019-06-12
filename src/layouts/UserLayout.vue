@@ -137,6 +137,8 @@
       </q-list>
     </q-drawer>
 
+    <router-view name="background"></router-view>
+
     <q-page-container>
       <router-view />
     </q-page-container>

@@ -30,6 +30,24 @@ const routes = [
       { path: 'client/:clientId/purchasedproducts/use', props: true, component: () => import('pages/PurchasedProductUse.vue'), meta: { requireAuthentication: true } },
 
       { path: 'website', props: true, component: () => import('pages/Website.vue'), meta: { requireAuthentication: true } },
+      {
+        path: 'website/preview/:path(.*)?',
+        props: { default: true, background: true },
+        components: {
+          default: () => import('pages/DynamicWebsite.vue'),
+          background: () => import('components/BackgroundImage')
+        },
+        meta: { requireAuthentication: true }
+      },
+      {
+        path: 'website/editor/:path(.*)?',
+        props: { default: true, background: true },
+        components: {
+          default: () => import('pages/DynamicWebsiteEditor.vue'),
+          background: () => import('components/BackgroundImage')
+        },
+        meta: { requireAuthentication: true }
+      },
       { path: 'website/test/:path(.*)?', props: true, component: () => import('pages/WebsitePage.vue'), meta: { requireAuthentication: true } }
     ]
   }

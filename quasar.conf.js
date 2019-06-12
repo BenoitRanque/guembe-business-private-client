@@ -6,7 +6,8 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     boot: [
       'API',
-      'AuthGuard'
+      'AuthGuard',
+      'i18n'
     ],
 
     css: [
@@ -63,7 +64,9 @@ module.exports = function (ctx) {
         'QTable',
         'QTh',
         'QTr',
-        'QTd'
+        'QTd',
+        'QPageSticky',
+        'QBtnGroup'
       ],
 
       directives: [
@@ -75,8 +78,13 @@ module.exports = function (ctx) {
       plugins: [
         'Notify',
         'Dialog',
-        'SessionStorage'
+        'SessionStorage',
+        'LoadingBar'
       ],
+
+      config: {
+        loadingBar: { /* LoadingBar defaults */ }
+      },
 
       iconSet: 'mdi-v3',
       lang: 'es' // Quasar language

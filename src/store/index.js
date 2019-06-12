@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// import example from './module-example'
 import state from './state'
 import * as getters from './getters'
 import * as mutations from './mutations'
 import * as actions from './actions'
+
+import website from './website'
 
 Vue.use(Vuex)
 
@@ -21,7 +22,7 @@ export default function (/* { ssrContext } */) {
     getters,
     actions,
     modules: {
-      // example
+      website
     },
 
     // enable strict mode (adds overhead!)

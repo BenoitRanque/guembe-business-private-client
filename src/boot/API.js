@@ -52,25 +52,30 @@ class GraphQL extends Function {
   }
 }
 
+const api = axios.create({
+  baseURL: 'https://chuturubi.com/api/v1',
+  timeout: 1000,
+  withCredentials: true
+})
+
+api.interceptors.request.use(async request => {
+  const sessionCookie = SessionStorage.getItem('session-auth')
+
+  if (sessionCookie) {
+    request.headers['Authorization'] = `session-auth ${sessionCookie}`
+  }
+
+  return request
+}, async error => Promise.reject(error))
+
+const gql = new GraphQL(api)
+
 export default ({ app, router, store, Vue }) => {
-  const api = axios.create({
-    baseURL: 'https://chuturubi.com/api/v1',
-    timeout: 1000,
-    withCredentials: true
-  })
-
-  api.interceptors.request.use(async request => {
-    const sessionCookie = SessionStorage.getItem('session-auth')
-
-    if (sessionCookie) {
-      request.headers['Authorization'] = `session-auth ${sessionCookie}`
-    }
-
-    return request
-  }, async error => Promise.reject(error))
-
-  const gql = new GraphQL(api)
-
   Vue.prototype.$api = api
   Vue.prototype.$gql = gql
+}
+
+export {
+  api,
+  gql
 }
