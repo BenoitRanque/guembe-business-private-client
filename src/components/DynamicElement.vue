@@ -1,6 +1,13 @@
 <template>
   <div :class="elementClass">
     <q-card>
+      <q-img
+        v-if="element.image"
+        :src="$img.src(element.image.image_id)"
+        :srcset="$img.srcset(element.image)"
+        :sizes="imageSizes"
+        :placeholder="element.image.placeholder"
+      ></q-img>
       <q-card-section v-if="element.title || element.subtitle">
         <div v-if="element.title" class="text-h6 text-primary">{{element.title}}</div>
         <div v-if="element.subtitle" class="text-subtitle2 text-accent">{{element.subtitle}}</div>
@@ -23,6 +30,16 @@ export default {
     }
   },
   computed: {
+    imageSizes () {
+      switch (this.element.size_id) {
+        case 'xl': return '100vw'
+        case 'lg': return '80vw'
+        case 'md': return '50vw'
+        case 'sm': return '33vw'
+        case 'xs': return '25vw'
+        default: return ''
+      }
+    },
     elementClass () {
       switch (this.element.size_id) {
         case 'xl': return 'col-12'

@@ -1,7 +1,7 @@
 <template>
   <q-bar>
     <q-btn-group flat>
-      <q-btn flat size="sm" dense icon="mdi-pencil">
+      <q-btn @click="showUpdateElementDialog = true" flat size="sm" dense icon="mdi-pencil">
         <q-tooltip>
           Editar Contenido
         </q-tooltip>
@@ -25,21 +25,30 @@
     </q-btn>
     <dialog-window v-model="showUpdateElementDialog">
       <template v-slot:title>
-        Crear Pagina
+        Editar Elemento
       </template>
-      <create-page @done="page => $router.push(`/website/preview/${page.path}`)" />
+      <image-input :value="element.image" @input="updateImage" format="card"></image-input>
+      <pre>{{element}}</pre>
     </dialog-window>
   </q-bar>
 </template>
 
 <script>
+import DialogWindow from 'components/DialogWindow'
+import ImageInput from 'components/ImageInput'
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
 export default {
   name: 'DynamicElementEditor',
+  components: { DialogWindow, ImageInput },
   props: {
     element: {
       type: Object,
       required: true
+    }
+  },
+  data () {
+    return {
+      showUpdateElementDialog: false
     }
   },
   methods: {
@@ -63,6 +72,24 @@ export default {
       const _set = {
         size_id: size
       }
+      try {
+        await this.$store.dispatch('website/UPDATE_ELEMENT', { where, _set })
+        await this.$store.dispatch('website/LOAD_PAGE')
+      } catch (error) {
+        this.$gql.handleError(error)
+      }
+    },
+    async updateImage (image_id) {
+      const where = {
+        element_id: {
+          _eq: this.element.element_id
+        }
+      }
+
+      const _set = {
+        image_id
+      }
+
       try {
         await this.$store.dispatch('website/UPDATE_ELEMENT', { where, _set })
         await this.$store.dispatch('website/LOAD_PAGE')

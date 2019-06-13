@@ -13,6 +13,18 @@ export async function LOAD_PAGE ({ commit, state }, { path = null } = { }) {
           element_id
           index
           size_id
+          image {
+            image_id
+            name
+            placeholder
+            image_format {
+              image_format_id
+              image_format_sizes {
+                size_id
+                width
+              }
+            }
+          }
           i18n {
             body
             caption

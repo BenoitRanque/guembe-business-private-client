@@ -7,7 +7,8 @@ module.exports = function (ctx) {
     boot: [
       'API',
       'AuthGuard',
-      'i18n'
+      'i18n',
+      'img'
     ],
 
     css: [
@@ -66,7 +67,8 @@ module.exports = function (ctx) {
         'QTr',
         'QTd',
         'QPageSticky',
-        'QBtnGroup'
+        'QBtnGroup',
+        'QAvatar'
       ],
 
       directives: [
