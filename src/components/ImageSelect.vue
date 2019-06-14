@@ -30,22 +30,6 @@
           </q-avatar>
         </q-td>
       </template>
-
-      <template v-slot:body-cell-update="props">
-        <q-td :props="props" auto-width class="">
-          <q-btn
-            no-wrap
-            flat
-            size="sm"
-            label="Detalles"
-            icon-right="mdi-open-in-new"
-          />
-          <q-tooltip>
-            Ver o modificar pagina
-          </q-tooltip>
-        </q-td>
-      </template>
-
     </q-table>
   </div>
 </template>
@@ -141,8 +125,9 @@ export default {
           // todo: order by custom
           { created_at: 'desc' }
         ],
-        where: !filter ? {} : {
-          name: { _ilike: `%${filter}%` }
+        where: {
+          image_format_id: this.format ? this.format : null,
+          name: !filter ? null : { _ilike: `%${filter}%` }
         }
       }
 
