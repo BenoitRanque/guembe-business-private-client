@@ -2,7 +2,7 @@ const baseURL = 'https://chuturubi.com'
 function src (image, size = null) {
   if (size === null) {
     // concat to create shallow copy (dont alter original array order)
-    size = image.image_format.image_format_sizes
+    size = image.format.format_sizes
       .concat()
       .sort((a, b) => b.width - a.width)[0].size_id
   }
@@ -10,7 +10,7 @@ function src (image, size = null) {
 }
 
 function srcset (image) {
-  return image.image_format.image_format_sizes
+  return image.format.format_sizes
     .map(({ size_id, width }) => `${src(image.image_id, size_id)} ${width}w`)
     .join(', ')
 }

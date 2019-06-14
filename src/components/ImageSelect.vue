@@ -101,12 +101,12 @@ export default {
         }
         data: website_image (where: $where offset: $offset limit: $limit order_by: $order_by) {
           image_id
-          image_format_id
+          format_id
           name
           placeholder
-          image_format {
-            image_format_id
-            image_format_sizes {
+          format {
+            format_id
+            format_sizes {
               size_id
               width
             }
@@ -126,7 +126,7 @@ export default {
           { created_at: 'desc' }
         ],
         where: {
-          image_format_id: this.format ? this.format : null,
+          format_id: this.format ? this.format : null,
           name: !filter ? null : { _ilike: `%${filter}%` }
         }
       }

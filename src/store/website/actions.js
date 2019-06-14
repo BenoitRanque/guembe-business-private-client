@@ -4,6 +4,10 @@ export async function LOAD_PAGE ({ commit, state }, { path = null } = { }) {
   const query = /* GraphQL */`query ($where: website_page_bool_exp) {
     pages: website_page (where: $where) {
       page_id
+      image {
+        name
+        ...Image
+      }
       name
       path
       sections (order_by: { index: asc }) {
@@ -14,16 +18,8 @@ export async function LOAD_PAGE ({ commit, state }, { path = null } = { }) {
           index
           size_id
           image {
-            image_id
             name
-            placeholder
-            image_format {
-              image_format_id
-              image_format_sizes {
-                size_id
-                width
-              }
-            }
+            ...Image
           }
           i18n {
             body
@@ -32,6 +28,17 @@ export async function LOAD_PAGE ({ commit, state }, { path = null } = { }) {
             title
           }
         }
+      }
+    }
+  }
+
+  fragment Image on website_image {
+    image_id
+    placeholder
+    format {
+      format_sizes {
+        size_id
+        width
       }
     }
   }`

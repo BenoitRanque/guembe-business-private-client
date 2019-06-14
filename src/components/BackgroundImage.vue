@@ -1,7 +1,10 @@
 <template>
   <q-img
-    src="https://chuturubi.com/aviario.jpg"
+    v-if="image"
     class="fixed-top-left fixed-bottom-right"
+    :src="$img.src(image)"
+    :srcset="$img.srcset(image)"
+    :placeholder="image.placeholder"
   >
     <template v-slot:loading></template>
   </q-img>
@@ -17,8 +20,10 @@ export default {
       default: ''
     }
   },
-  mounted () {
-    console.log('background path', this.path)
+  computed: {
+    image () {
+      return this.$store.state.website.page ? this.$store.state.website.page.image : null
+    }
   }
 }
 </script>
