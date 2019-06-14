@@ -18,7 +18,7 @@
       </q-btn>
     </q-btn-group>
     <q-space />
-    <q-btn size="sm" flat dense icon="mdi-delete">
+    <q-btn size="sm" flat dense icon="mdi-delete" @click="deleteElement">
       <q-tooltip>
         Eliminar elemento
       </q-tooltip>
@@ -27,7 +27,15 @@
       <template v-slot:title>
         Editar Elemento
       </template>
-      <image-input :value="element.image" @input="updateImage" format="card"></image-input>
+
+      <q-tabs>
+        <q-tab v-for="(locale, index) in locales" :key="index" :label="locale.name">
+        </q-tab>
+      </q-tabs>
+          <pre>
+            locales
+          </pre>
+      <image-input :value="element.image_id" @input="updateImage" format="card"></image-input>
       <pre>{{element}}</pre>
     </dialog-window>
   </q-bar>
@@ -49,6 +57,11 @@ export default {
   data () {
     return {
       showUpdateElementDialog: false
+    }
+  },
+  computed: {
+    locales () {
+      return this.$store.state.website.locales
     }
   },
   methods: {
@@ -78,6 +91,20 @@ export default {
       } catch (error) {
         this.$gql.handleError(error)
       }
+    },
+    deleteElement () {
+      this.$q.dialog({
+        title: 'Confirmar',
+        message: 'Eliminar Elemento?',
+        cancel: true
+      }).onOk(async () => {
+        try {
+          await this.$store.dispatch('website/DELETE_ELEMENT', { where: { element_id: { _eq: this.element.element_id } } })
+          await this.$store.dispatch('website/LOAD_PAGE')
+        } catch (error) {
+          this.$gql.handleError(error)
+        }
+      })
     },
     async updateImage (image_id) {
       const where = {

@@ -1,6 +1,9 @@
 <template>
   <q-page>
     <dynamic-page v-if="page" :page="page">
+      <template v-slot:editor>
+        <dynamic-page-editor :page="page" class="q-mb-md"></dynamic-page-editor>
+      </template>
       <dynamic-section v-for="(section, index) in page.sections" :key="`section_${index}`" :section="section">
         <dynamic-element v-for="(element, index) in section.elements" :key="`element_${index}`" :element="element">
           <template v-slot:editor>
@@ -11,9 +14,6 @@
           <dynamic-section-editor :section="section" class="q-mt-md"></dynamic-section-editor>
         </template>
       </dynamic-section>
-      <template v-slot:editor>
-        <dynamic-page-editor :page="page" class="q-ma-md"></dynamic-page-editor>
-      </template>
     </dynamic-page>
     <q-inner-loading v-else :showing="true">
       <q-spinner></q-spinner>

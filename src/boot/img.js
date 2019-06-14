@@ -1,12 +1,6 @@
 const baseURL = 'https://chuturubi.com'
-function src (image, size = null) {
-  if (size === null) {
-    // concat to create shallow copy (dont alter original array order)
-    size = image.format.format_sizes
-      .concat()
-      .sort((a, b) => b.width - a.width)[0].size_id
-  }
-  return `${baseURL}/uploads/image/${image.image_id}.${size}.jpg`
+function src (image_id, size = 'xl') {
+  return `${baseURL}/uploads/image/${image_id}.${size}.jpg`
 }
 
 function srcset (image) {

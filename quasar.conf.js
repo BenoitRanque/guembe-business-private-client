@@ -5,7 +5,7 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'API',
+      'api',
       'AuthGuard',
       'i18n',
       'img'
@@ -68,7 +68,12 @@ module.exports = function (ctx) {
         'QTd',
         'QPageSticky',
         'QBtnGroup',
-        'QAvatar'
+        'QAvatar',
+        'QExpansionItem',
+        'QTabs',
+        'QTab',
+        'QTabPanel',
+        'QField'
       ],
 
       directives: [

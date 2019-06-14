@@ -37,8 +37,12 @@ export default {
   methods: {
 
   },
-  mounted () {
-    this.$store.dispatch('website/LOAD_PAGE', { path: this.path })
+  async mounted () {
+    try {
+      await this.$store.dispatch('website/LOAD_PAGE', { path: this.path })
+    } catch (error) {
+      this.$gql.handleError(error)
+    }
   }
 }
 </script>

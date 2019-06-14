@@ -1,37 +1,38 @@
 <template>
-  <div>
-    <!-- table with extra row for the currently selected image -->
-    image select
+  <q-table
+    flat
+    title="Selecionar Imagen"
+    :data="data"
+    :columns="columns"
+    row-key="image_id"
+    :pagination.sync="pagination"
+    :filter="filter"
+    :loading="loading"
+    @request="request"
+  >
+    <template v-slot:top-right>
+      <slot name="upload"></slot>
+      <q-input borderless dense debounce="300" v-model="filter" placeholder="Buscar">
+        <template v-slot:append>
+          <q-icon name="mdi-magnify" />
+        </template>
+      </q-input>
+    </template>
 
-    <q-table
-      flat
-      title="Selecionar Imagen"
-      :data="data"
-      :columns="columns"
-      row-key="image_id"
-      :pagination.sync="pagination"
-      :filter="filter"
-      :loading="loading"
-      @request="request"
-    >
-      <template v-slot:top-right>
-        <slot name="upload"></slot>
-        <q-input borderless dense debounce="300" v-model="filter" placeholder="Buscar">
-          <template v-slot:append>
-            <q-icon name="mdi-magnify" />
-          </template>
-        </q-input>
-      </template>
+    <template v-slot:body-cell-preview="props">
+      <q-td :props="props" auto-width class="">
+        <q-avatar rounded color="grey-4">
+          <q-img :src="$img.src(props.row.image_id, 'xs')" :placeholder="props.row.placeholder"></q-img>
+        </q-avatar>
+      </q-td>
+    </template>
 
-      <template v-slot:body-cell-preview="props">
-        <q-td :props="props" auto-width class="">
-          <q-avatar rounded color="grey-4">
-            <q-img style="width: 80px" :src="$img.src(props.row.image_id, 'xs')" :placeholder="props.row.placeholder"></q-img>
-          </q-avatar>
-        </q-td>
-      </template>
-    </q-table>
-  </div>
+    <template v-slot:body-cell-select="props">
+      <q-td :props="props">
+        <q-btn flat dense icon="mdi-check" @click="select(props.row)"></q-btn>
+      </q-td>
+    </template>
+  </q-table>
 </template>
 
 <script>
@@ -80,8 +81,13 @@ export default {
         },
         {
           name: 'created_by',
-          label: '',
+          align: 'left',
+          label: 'Usuario',
           field: row => row.created_by_user ? row.created_by_user.username : null
+        },
+        {
+          name: 'select',
+          label: 'Selecionar'
         }
       ]
     }
@@ -106,6 +112,7 @@ export default {
           placeholder
           format {
             format_id
+            name
             format_sizes {
               size_id
               width
@@ -126,7 +133,7 @@ export default {
           { created_at: 'desc' }
         ],
         where: {
-          format_id: this.format ? this.format : null,
+          format_id: this.format ? { _eq: this.format } : null,
           name: !filter ? null : { _ilike: `%${filter}%` }
         }
       }
@@ -146,6 +153,9 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+    select (row) {
+      this.$emit('done', row.image_id)
     }
   },
   mounted () {

@@ -1,12 +1,17 @@
 import { SessionStorage } from 'quasar'
+import { gql } from 'src/boot/api'
 
 export async function LOGIN ({ dispatch }, { username, password }) {
   const { data: session } = await this.$router.app.$api.post('/auth/login', { username, password })
   SessionStorage.set('session-auth', session)
   dispatch('RESTORE_SESSION')
+
+  dispatch('INIT_STORE')
 }
 
 export async function LOGOUT ({ commit }) {
+  await this.$router.app.$api.post('/auth/logout')
+  SessionStorage.set('session-auth', null)
   commit('LOGOUT')
 }
 
@@ -17,8 +22,6 @@ export function RESTORE_SESSION ({ commit }) {
     return
   }
 
-  console.log(sessionCookie)
-
   const token = sessionCookie.split('.')[1]
 
   if (!token) {
@@ -28,4 +31,12 @@ export function RESTORE_SESSION ({ commit }) {
   const session = JSON.parse(atob(token))
 
   commit('LOGIN', session.ses)
+}
+
+export async function INIT_STORE ({ dispatch }) {
+  try {
+    await dispatch('website/LOAD_LOCALES')
+  } catch (error) {
+    gql.handleError(error)
+  }
 }

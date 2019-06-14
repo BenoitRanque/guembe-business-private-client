@@ -1,11 +1,53 @@
-import { gql } from 'src/boot/API'
+import { gql } from 'src/boot/api'
+
+export async function LOAD_LOCALES ({ commit }) {
+  const query = /* GraphQL */`query {
+    i18n_locale {
+      locale_id
+      name
+    }
+  }`
+
+  const { i18n_locale } = await gql(query, {}, { role: 'administrator' })
+
+  commit('LOCALES', i18n_locale)
+}
+
+export async function IMAGE (ctx, image_id) {
+  const query = /* GraphQL */`query ($image_id: uuid!) {
+    image: website_image_by_pk (image_id: $image_id) {
+      ...Image
+      name
+    }
+  }
+
+  fragment Image on website_image {
+    image_id
+    placeholder
+    format {
+      format_id
+      format_sizes {
+        size_id
+        width
+      }
+    }
+  }`
+
+  const variables = {
+    image_id
+  }
+
+  const { image } = await gql(query, variables, { role: 'administrador' })
+
+  return image
+}
 
 export async function LOAD_PAGE ({ commit, state }, { path = null } = { }) {
   const query = /* GraphQL */`query ($where: website_page_bool_exp) {
     pages: website_page (where: $where) {
       page_id
+      image_id
       image {
-        name
         ...Image
       }
       name
@@ -17,11 +59,12 @@ export async function LOAD_PAGE ({ commit, state }, { path = null } = { }) {
           element_id
           index
           size_id
-          image {
-            name
-            ...Image
-          }
           i18n {
+            image_id
+            image {
+              name
+              ...Image
+            }
             body
             caption
             subtitle
@@ -59,6 +102,8 @@ export async function LOAD_PAGE ({ commit, state }, { path = null } = { }) {
   }
 
   commit('PAGE', page)
+
+  return page
 }
 
 export async function CREATE_PAGE (ctx, objects) {

@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <div>
-      <slot />
-    </div>
+  <div class="q-pa-md dynamic-page">
     <slot name="editor" />
+    <slot />
   </div>
 </template>
 
@@ -18,3 +16,9 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+  .dynamic-page
+    margin 0 auto
+    max-width 992px
+</style>
