@@ -2,7 +2,9 @@
   <q-page>
     <dynamic-page v-if="page" :page="page">
       <template v-slot:editor>
-        <dynamic-page-editor :page="page" class="q-mb-md"></dynamic-page-editor>
+        <q-card>
+          <dynamic-page-editor :page="page"></dynamic-page-editor>
+        </q-card>
       </template>
       <dynamic-section v-for="(section, index) in page.sections" :key="`section_${index}`" :section="section">
         <dynamic-element v-for="(element, index) in section.elements" :key="`element_${index}`" :element="element">
@@ -11,7 +13,9 @@
           </template>
         </dynamic-element>
         <template v-slot:editor>
-          <dynamic-section-editor :section="section" class="q-mt-md"></dynamic-section-editor>
+          <q-card class="q-mb-md">
+            <dynamic-section-editor :section="section"></dynamic-section-editor>
+          </q-card>
         </template>
       </dynamic-section>
     </dynamic-page>

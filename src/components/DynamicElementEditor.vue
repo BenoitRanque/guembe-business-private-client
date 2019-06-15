@@ -1,24 +1,36 @@
 <template>
   <q-bar>
+    <q-btn @click="showUpdateElementDialog = true" flat dense icon="mdi-pencil">
+      <q-tooltip>
+        Editar Contenido
+      </q-tooltip>
+    </q-btn>
     <q-btn-group flat>
-      <q-btn @click="showUpdateElementDialog = true" flat size="sm" dense icon="mdi-pencil">
-        <q-tooltip>
-          Editar Contenido
-        </q-tooltip>
-      </q-btn>
-      <q-btn @click="decreaseSize" size="sm" flat icon="mdi-chevron-triple-down" dense>
+      <q-btn @click="decreaseSize" flat icon="mdi-magnify-minus-outline" dense>
         <q-tooltip>
           Disminuir tamaño
         </q-tooltip>
       </q-btn>
-      <q-btn @click="increaseSize" size="sm" flat icon="mdi-chevron-triple-up" dense>
+      <q-btn @click="increaseSize" flat icon="mdi-magnify-plus-outline" dense>
         <q-tooltip>
           Aumentar tamaño
         </q-tooltip>
       </q-btn>
     </q-btn-group>
-    <q-space />
-    <q-btn size="sm" flat dense icon="mdi-delete" @click="deleteElement">
+    <q-space></q-space>
+    <q-btn-group flat>
+      <q-btn flat icon="mdi-chevron-down" dense>
+        <q-tooltip>
+          Bajar
+        </q-tooltip>
+      </q-btn>
+      <q-btn flat icon="mdi-chevron-up" dense>
+        <q-tooltip>
+          Subir
+        </q-tooltip>
+      </q-btn>
+    </q-btn-group>
+    <q-btn flat dense icon="mdi-delete" @click="deleteElement">
       <q-tooltip>
         Eliminar elemento
       </q-tooltip>
@@ -27,27 +39,25 @@
       <template v-slot:title>
         Editar Elemento
       </template>
-
-      <q-tabs>
-        <q-tab v-for="(locale, index) in locales" :key="index" :label="locale.name">
-        </q-tab>
-      </q-tabs>
-          <pre>
-            locales
-          </pre>
-      <image-input :value="element.image_id" @input="updateImage" format="card"></image-input>
-      <pre>{{element}}</pre>
+      <div class="q-pa-md q-gutter-md">
+        <div>
+          Elemento blah blah blah
+        </div>
+        <update-element :element="element"></update-element>
+        <update-element-i18n :element="element"></update-element-i18n>
+      </div>
     </dialog-window>
   </q-bar>
 </template>
 
 <script>
 import DialogWindow from 'components/DialogWindow'
-import ImageInput from 'components/ImageInput'
+import UpdateElement from 'components/UpdateElement'
+import UpdateElementI18n from 'components/UpdateElementI18n'
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
 export default {
   name: 'DynamicElementEditor',
-  components: { DialogWindow, ImageInput },
+  components: { DialogWindow, UpdateElement, UpdateElementI18n },
   props: {
     element: {
       type: Object,
@@ -56,6 +66,8 @@ export default {
   },
   data () {
     return {
+      tab: 'element',
+      locale: null,
       showUpdateElementDialog: false
     }
   },

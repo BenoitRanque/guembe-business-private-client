@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md dynamic-page">
+  <div class="q-pa-md dynamic-page q-gutter-md">
     <slot name="editor" />
     <slot />
   </div>

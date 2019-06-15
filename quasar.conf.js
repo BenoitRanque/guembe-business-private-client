@@ -72,8 +72,12 @@ module.exports = function (ctx) {
         'QExpansionItem',
         'QTabs',
         'QTab',
+        'QTabPanels',
         'QTabPanel',
-        'QField'
+        'QField',
+        'QCarousel',
+        'QCarouselSlide',
+        'QEditor'
       ],
 
       directives: [

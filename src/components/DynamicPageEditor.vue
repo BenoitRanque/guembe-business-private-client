@@ -1,31 +1,54 @@
 <template>
-  <q-card>
-    <q-card-section>
-      pagina
-    </q-card-section>
-    <q-card-section>
-      <image-input :value="page.image_id" @input="updateImage" format="background"></image-input>
-    </q-card-section>
-    <q-card-section>
-      <q-btn @click="addSection"> Aggregar grupo</q-btn>
-    </q-card-section>
-    <q-expansion-item label="State">
-      <q-card-section class="scroll">
-        <pre>{{$store.state.website}}</pre>
+  <q-bar>
+    Pagina
+    <q-btn @click="showUpdatePageDialog = true" flat dense icon="mdi-pencil">
+      <q-tooltip>
+        Editar Pagina
+      </q-tooltip>
+    </q-btn>
+    <q-space></q-space>
+    <q-btn flat dense icon="mdi-delete">
+      <q-tooltip>
+        Eliminar seccion
+      </q-tooltip>
+    </q-btn>
+    <dialog-window v-model="showUpdatePageDialog">
+      <template v-slot:title>
+        Editar Pagina
+      </template>
+      <q-card-section>
+        pagina
       </q-card-section>
-    </q-expansion-item>
-  </q-card>
+      <q-card-section>
+        <image-input :value="page.image_id" @input="updateImage" format="background"></image-input>
+      </q-card-section>
+      <q-card-section>
+        <q-btn @click="addSection"> Aggregar grupo</q-btn>
+      </q-card-section>
+      <q-expansion-item label="State">
+        <q-card-section class="scroll">
+          <pre>{{$store.state.website}}</pre>
+        </q-card-section>
+      </q-expansion-item>
+    </dialog-window>
+  </q-bar>
 </template>
 
 <script>
+import DialogWindow from 'components/DialogWindow'
 import ImageInput from 'components/ImageInput'
 export default {
   name: 'DynamicPageEditor',
-  components: { ImageInput },
+  components: { ImageInput, DialogWindow },
   props: {
     page: {
       type: Object,
       required: true
+    }
+  },
+  data () {
+    return {
+      showUpdatePageDialog: false
     }
   },
   methods: {
