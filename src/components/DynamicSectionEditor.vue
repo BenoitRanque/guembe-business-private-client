@@ -13,7 +13,7 @@
         </q-tooltip>
       </q-btn>
     <q-space></q-space>
-    <q-btn-group flat>
+    <!-- <q-btn-group flat>
       <q-btn flat icon="mdi-chevron-down" dense>
         <q-tooltip>
           Bajar
@@ -24,8 +24,8 @@
           Subir
         </q-tooltip>
       </q-btn>
-    </q-btn-group>
-    <q-btn flat dense icon="mdi-delete">
+    </q-btn-group> -->
+    <q-btn flat dense icon="mdi-delete" @click="removeSection">
       <q-tooltip>
         Eliminar seccion
       </q-tooltip>
@@ -60,9 +60,38 @@ export default {
     }
   },
   methods: {
+    removeSection () {
+      this.$q.dialog({
+        title: 'Eliminar Seccion',
+        message: 'Esta accion es ireversible. Se Elimninara esta seccion y todos sus elementos. Para confirmar escriba el numero de la seccion',
+        prompt: {
+          model: '',
+          type: 'number'
+        },
+        cancel: true
+      }).onOk(async sectionIndex => {
+        if (sectionIndex !== String(this.section.index + 1)) {
+          return this.$q.notify({ message: 'Numero incorrecto. Debe ingresar el numero de la seccion', color: 'warning' })
+        }
+        try {
+          await this.$store.dispatch('website/DELETE_SECTION', { where: { section_id: { _eq: this.section.section_id } } })
+          await this.$store.dispatch('website/LOAD_PAGE')
+        } catch (error) {
+          this.$gql.handleError(error)
+        }
+      })
+    },
     async addElement () {
       try {
-        await this.$store.dispatch('website/CREATE_ELEMENT', { section_id: this.section.section_id, index: this.section.elements.length, size_id: 'md' })
+        const objects = {
+          section_id: this.section.section_id,
+          index: this.section.elements.reduce((acc, element, index) => element.index !== index && index < acc ? index : acc, this.section.elements.length),
+          size_id: 'md',
+          i18n: {
+            data: this.$store.state.website.locales.map(({ locale_id }) => ({ locale_id }))
+          }
+        }
+        await this.$store.dispatch('website/CREATE_ELEMENT', objects)
         await this.$store.dispatch('website/LOAD_PAGE')
       } catch (error) {
         this.$gql.handleError(error)

@@ -1,26 +1,32 @@
 <template>
   <div :class="elementClass">
-    <q-card>
-      <q-img
-        v-if="element.image"
-        :src="$img.src(element.image.image_id)"
-        :srcset="$img.srcset(element.image)"
-        :sizes="imageSizes"
-        :placeholder="element.image.placeholder"
-      ></q-img>
-      <q-card-section v-if="element.title || element.subtitle">
-        <div v-if="element.title" class="text-h6 text-primary">{{element.title}}</div>
-        <div v-if="element.subtitle" class="text-subtitle2 text-accent">{{element.subtitle}}</div>
-      </q-card-section>
+    <q-card :class="{ 'cursor-pointer': hasLink }" @click="handleClick">
       <slot name="editor"></slot>
-      <q-card-section v-if="element.body">
-        <div v-html="element.body"></div>
+      <q-img
+        v-if="$i18n(element, 'image')"
+        :src="$img.src($i18n(element, 'image').image_id)"
+        :srcset="$img.srcset($i18n(element, 'image'))"
+        :sizes="imageSizes"
+        :placeholder="$i18n(element, 'image').placeholder"
+      >
+        <div class="absolute-bottom text-subtitle2 text-center" v-if="$i18n(element, 'caption')">
+          {{$i18n(element, 'caption')}}
+          <q-icon name="mdi-forward" v-if="hasLink"></q-icon>
+        </div>
+      </q-img>
+      <q-card-section v-if="$i18n(element, 'title') || $i18n(element, 'subtitle')">
+        <div v-if="$i18n(element, 'title') " class="text-h6 text-primary">{{$i18n(element, 'title') }}</div>
+        <div v-if="$i18n(element, 'subtitle')" class="text-subtitle2 text-accent">{{$i18n(element, 'subtitle')}}</div>
+      </q-card-section>
+      <q-card-section v-if="$i18n(element, 'body')">
+        <div v-html="$i18n(element, 'body')"></div>
       </q-card-section>
     </q-card>
   </div>
 </template>
 
 <script>
+import { openURL } from 'quasar'
 export default {
   name: 'DynamicElement',
   props: {
@@ -30,6 +36,12 @@ export default {
     }
   },
   computed: {
+    hasLink () {
+      if (this.element.internal_link) return true
+      if (this.element.external_link) return true
+      if (this.element.listing_link) return true
+      return false
+    },
     imageSizes () {
       switch (this.element.size_id) {
         case 'xl': return '100vw'
@@ -48,6 +60,18 @@ export default {
         case 'sm': return 'col-4'
         case 'xs': return 'col-3'
         default: return ''
+      }
+    }
+  },
+  methods: {
+    handleClick () {
+      if (this.element.internal_link) {
+        const [ , mode ] = this.$route.fullpath.match(/^\/website\/(editor|preview)/)
+        this.$router.push(`/website/${mode}/${this.element.internal_link}`)
+      } else if (this.element.external_link) {
+        openURL(this.element.external_link)
+      } else if (this.element.listing_link) {
+        this.$router.push(`/listing/${this.element.listing_link}`)
       }
     }
   }

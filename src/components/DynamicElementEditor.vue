@@ -18,7 +18,7 @@
       </q-btn>
     </q-btn-group>
     <q-space></q-space>
-    <q-btn-group flat>
+    <!-- <q-btn-group flat>
       <q-btn flat icon="mdi-chevron-down" dense>
         <q-tooltip>
           Bajar
@@ -29,7 +29,7 @@
           Subir
         </q-tooltip>
       </q-btn>
-    </q-btn-group>
+    </q-btn-group> -->
     <q-btn flat dense icon="mdi-delete" @click="deleteElement">
       <q-tooltip>
         Eliminar elemento
@@ -39,13 +39,23 @@
       <template v-slot:title>
         Editar Elemento
       </template>
-      <div class="q-pa-md q-gutter-md">
+      <q-tabs dense v-model="tab">
+        <q-tab name="element" label="Elemento"></q-tab>
+        <q-tab name="i18n" label="Idiomas"></q-tab>
+      </q-tabs>
+      <q-tab-panels v-model="tab">
+        <q-tab-panel name="element">
+          <update-element :element="element"></update-element>
+        </q-tab-panel>
+        <q-tab-panel name="i18n">
+          <update-element-i18n :element="element"></update-element-i18n>
+        </q-tab-panel>
+      </q-tab-panels>
+      <!-- <div class="q-pa-md q-gutter-md">
         <div>
           Elemento blah blah blah
         </div>
-        <update-element :element="element"></update-element>
-        <update-element-i18n :element="element"></update-element-i18n>
-      </div>
+      </div> -->
     </dialog-window>
   </q-bar>
 </template>

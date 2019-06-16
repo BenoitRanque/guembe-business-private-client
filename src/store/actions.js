@@ -11,7 +11,7 @@ export async function LOGIN ({ dispatch }, { username, password }) {
 
 export async function LOGOUT ({ commit }) {
   await this.$router.app.$api.post('/auth/logout')
-  SessionStorage.set('session-auth', null)
+  SessionStorage.remove('session-auth')
   commit('LOGOUT')
 }
 
@@ -35,7 +35,7 @@ export function RESTORE_SESSION ({ commit }) {
 
 export async function INIT_STORE ({ dispatch }) {
   try {
-    await dispatch('website/LOAD_LOCALES')
+    await dispatch('website/INITIALIZE_WEBSITE_STORE')
   } catch (error) {
     gql.handleError(error)
   }

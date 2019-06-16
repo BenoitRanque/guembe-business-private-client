@@ -73,18 +73,24 @@ export default {
           align: 'left'
         },
         {
-          name: 'created_at',
-          label: 'Creado',
-          align: 'left',
-          field: 'created_at',
-          format: (value, row) => formatDate(value, 'YYYY/MM/DD HH:mm')
+          name: 'ow => format .nameformat',
+          field: row => row.format.name,
+          label: 'Formato',
+          align: 'left'
         },
-        {
-          name: 'created_by',
-          align: 'left',
-          label: 'Usuario',
-          field: row => row.created_by_user ? row.created_by_user.username : null
-        },
+        // {
+        //   name: 'created_at',
+        //   label: 'Creado',
+        //   align: 'left',
+        //   field: 'created_at',
+        //   format: (value, row) => formatDate(value, 'YYYY/MM/DD HH:mm')
+        // },
+        // {
+        //   name: 'created_by',
+        //   align: 'left',
+        //   label: 'Usuario',
+        //   field: row => row.created_by_user ? row.created_by_user.username : null
+        // },
         {
           name: 'select',
           label: 'Selecionar'

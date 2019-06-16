@@ -3,7 +3,7 @@ export default ({ app, router, store, Vue }) => {
     try {
       return obj.i18n[0][prop]
     } catch (error) {
-      throw new Error(`Could not extract translation ${prop} from object ${obj}`)
+      return null
     }
   }
 }

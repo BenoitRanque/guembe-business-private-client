@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <dynamic-page v-if="page" :page="page">
-      <dynamic-section v-for="(section, index) in page.sections" :key="`section_${index}`" :section="section" class="q-pt-md">
+      <dynamic-section v-for="(section, index) in page.sections" :key="`section_${index}`" :section="section">
         <dynamic-element v-for="(element, index) in section.elements" :key="`element_${index}`" :element="element">
         </dynamic-element>
       </dynamic-section>

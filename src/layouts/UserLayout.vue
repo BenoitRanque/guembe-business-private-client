@@ -29,6 +29,14 @@
             label="Mi Cuenta"
           >
             <q-list>
+              <q-item clickable @click="$store.commit('website/LOCALE', $store.state.website.locale === 'es' ? 'en' : 'es')">
+                <q-item-section side>
+                  <q-icon name="mdi-flag"></q-icon>
+                </q-item-section>
+                <q-item-section>
+                  Cambiar Idioma {{$store.state.website.locale}}
+                </q-item-section>
+              </q-item>
               <q-item clickable @click="showUserPasswordDialog = true">
                 <q-item-section side>
                   <q-icon name="mdi-lock-reset"></q-icon>

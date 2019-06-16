@@ -42,7 +42,7 @@
       </q-card>
     </q-dialog>
     <q-dialog v-model="showImagePreviewDialog" v-if="image">
-      <q-card style="min-width: 80vw">
+      <q-card style="width: 60vw">
         <q-bar>
           {{image ? image.name : null}}
           <q-space></q-space>
@@ -73,7 +73,7 @@ export default {
     },
     format: {
       type: String,
-      required: true
+      required: false
     }
   },
   data () {

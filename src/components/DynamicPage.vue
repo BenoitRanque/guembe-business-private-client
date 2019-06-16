@@ -1,7 +1,9 @@
 <template>
-  <div class="q-pa-md dynamic-page q-gutter-md">
-    <slot name="editor" />
-    <slot />
+  <div class="dynamic-page">
+    <div class="q-gutter-md q-pa-md">
+      <slot name="editor" />
+      <slot />
+    </div>
   </div>
 </template>
 
