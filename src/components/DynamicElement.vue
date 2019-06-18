@@ -1,6 +1,6 @@
 <template>
   <div :class="elementClass">
-    <q-card>
+    <q-card class="overflow-hidden rounded-borders">
       <slot name="editor"></slot>
       <div :class="{ 'cursor-pointer': hasLink }" @click="handleClick">
         <q-img
