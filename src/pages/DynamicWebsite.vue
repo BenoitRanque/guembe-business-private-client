@@ -29,6 +29,11 @@ export default {
       default: ''
     }
   },
+  watch: {
+    $route (to, from) {
+      this.$store.dispatch('website/LOAD_PAGE', { path: to.params.path })
+    }
+  },
   computed: {
     page () {
       return this.$store.state.website.page

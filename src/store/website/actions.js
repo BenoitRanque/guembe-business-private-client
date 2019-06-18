@@ -64,6 +64,9 @@ export async function LOAD_PAGE ({ commit, state }, { path = null } = { }) {
           element_id
           index
           size_id
+          external_link
+          internal_link
+          listing_link
           i18n (where: { locale_id: { _eq: $locale_id } }) {
             locale_id
             image_id
@@ -243,7 +246,7 @@ export async function DELETE_SECTION (ctx, { where }) {
   return gql(query, variables, { role: 'administrator' })
 }
 
-export async function CREATE_ELEMENT (ctx, objects) {
+export async function CREATE_ELEMENT ({ state }, objects) {
   const query = /* GraphQL */`mutation ($objects: [website_element_insert_input!]!) {
     insert: insert_website_element (objects: $objects) {
       affected_rows
@@ -253,10 +256,24 @@ export async function CREATE_ELEMENT (ctx, objects) {
     }
   }`
 
-  const variables = { objects }
+  const variables = {
+    objects: Array.isArray(objects)
+      ? objects.map(insertI18nByDefault)
+      : insertI18nByDefault(objects)
+  }
 
   return gql(query, variables, { role: 'administrator' })
+
+  function insertI18nByDefault (object) {
+    return {
+      i18n: {
+        data: state.locales.map(({ locale_id }) => ({ locale_id }))
+      },
+      ...object
+    }
+  }
 }
+
 export async function UPDATE_ELEMENT (ctx, { where, _set }) {
   const query = /* GraphQL */`mutation ($where: website_element_bool_exp! $_set: website_element_set_input) {
     update: update_website_element (where: $where _set: $_set) {

@@ -87,12 +87,14 @@ export default {
           {
             name: 'name',
             field: 'name',
-            label: 'Nombre'
+            label: 'Nombre',
+            align: 'left'
           },
           {
             name: 'path',
             field: 'path',
-            label: 'Ruta'
+            label: 'Ruta',
+            align: 'left'
           },
           {
             name: 'created_at',

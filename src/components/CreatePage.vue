@@ -1,6 +1,6 @@
 <template>
-  <q-form @submit="submit" @reset="reset">
-    <div class="q-gutter-md q-pa-md">
+  <q-form @submit="submit" @reset="reset" class="q-pa-md">
+    <div class="q-gutter-y-md">
 
       <q-input
         filled
@@ -24,8 +24,9 @@
         ]"
       ></q-input>
 
+      <image-input filled v-model="page.image_id" format="background" label="Imagen de Fondo"></image-input>
+
     </div>
-    <q-separator></q-separator>
     <div class="row justify-around q-pa-md">
       <q-btn color="secondary" flat type="reset">reset</q-btn>
       <q-btn color="primary" type="submit">Crear</q-btn>
@@ -37,9 +38,11 @@
 </template>
 
 <script>
+import ImageInput from 'components/ImageInput'
 
 export default {
   name: 'CreatePage',
+  components: { ImageInput },
   data () {
     return {
       loading: false,

@@ -73,7 +73,7 @@ export default {
           align: 'left'
         },
         {
-          name: 'ow => format .nameformat',
+          name: 'format',
           field: row => row.format.name,
           label: 'Formato',
           align: 'left'

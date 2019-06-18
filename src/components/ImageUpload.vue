@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-select v-if="!format" dense v-model="selectedFormat" :options="formatOptions"></q-select>
+    <q-select v-if="!format" filled label="Formato" dense v-model="selectedFormat" :options="formatOptions"></q-select>
     <q-uploader
       :disable="!uploadFormat"
       auto-upload
@@ -45,7 +45,7 @@ export default {
       return this.selectedFormat ? this.selectedFormat.value : null
     },
     url () {
-      return `https://chuturubi.com/api/v1/image/upload?format=${this.uploadFormat}`
+      return `https://chuturubi.com/api/v1/upload/image?format=${this.uploadFormat}`
     },
     headers () {
       return [{

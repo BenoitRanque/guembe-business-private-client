@@ -1,7 +1,7 @@
 <template>
   <q-field v-bind="$attrs" :value="value" @input="$event  => $emit('input', $event)">
     <template v-slot:prepend>
-      <q-avatar rounded color="grey-4"  :class="image ? 'cursor-pointer' : ''" @click="showImagePreviewDialog = true">
+      <q-avatar rounded color="grey-4" :class="image ? 'cursor-pointer' : ''" @click="showImagePreviewDialog = true">
         <q-img v-if="image" :src="$img.src(image.image_id, 'xs')" :placeholder="value.placeholder"></q-img>
       </q-avatar>
     </template>

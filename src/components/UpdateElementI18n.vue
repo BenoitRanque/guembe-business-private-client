@@ -2,7 +2,7 @@
   <q-form class="q-gutter-y-sm" @submit="submit" @reset="reset">
     <q-select dense label="Idioma" :value="locale" @input="changeLocale" :display-value="localeDisplayValue" :options="localeOptions" clearable dark bg-color="accent" filled></q-select>
     <image-input label="Imagen" dense filled v-model="model.image_id"></image-input>
-    <q-input  label="Leyenda" dense filled v-model="model.caption"></q-input>
+    <q-input label="Leyenda" dense filled v-model="model.caption"></q-input>
     <q-input label="Titulo" dense filled v-model="model.title"></q-input>
     <q-input label="Subtitulo" dense filled v-model="model.subtitle"></q-input>
     <q-editor v-model="model.body"></q-editor>
@@ -124,6 +124,8 @@ export default {
         await this.$store.dispatch('website/LOAD_PAGE')
 
         this.$q.notify({ color: 'positive', icon: 'mdi-check', message: 'Actualizado Exitosamente' })
+
+        this.$emit('done')
       } catch (error) {
         this.$gql.handleError(error)
       } finally {
