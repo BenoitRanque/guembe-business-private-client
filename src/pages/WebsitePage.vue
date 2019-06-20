@@ -9,10 +9,7 @@
     <div class="text-center q-pa-md">
       <q-btn round icon="mdi-plus" color="accent" @click="addSection(page.page_id, page.sections.length)"></q-btn>
     </div>
-    <dialog-window v-model="showCreateElementDialog">
-      <template v-slot:title>
-        Crear Elemento
-      </template>
+    <dialog-window v-model="showCreateElementDialog" title="Crear Elemento">
       <create-element />
     </dialog-window>
   </q-page>

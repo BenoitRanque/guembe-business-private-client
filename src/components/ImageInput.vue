@@ -17,10 +17,7 @@
         </q-tooltip>
       </q-btn>
     </template>
-    <dialog-window v-model="showImageSelectDialog">
-      <template v-slot:title>
-        Selecionar Imagen
-      </template>
+    <dialog-window v-model="showImageSelectDialog" title="Selecionar Imagen">
       <image-select @done="imageSelected" :format="format">
         <template v-slot:upload>
           <q-btn icon="mdi-upload" class="q-mx-sm" dense color="accent" @click="showImageUploadDialog = true">

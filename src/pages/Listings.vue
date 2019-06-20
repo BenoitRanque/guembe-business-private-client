@@ -24,10 +24,7 @@
       <q-spinner></q-spinner>
     </q-inner-loading>
 
-    <dialog-window v-model="showCreateListingDialog">
-      <template v-slot:title>
-        Crear Paquete
-      </template>
+    <dialog-window v-model="showCreateListingDialog" title="Crear Paquete">
       <create-listing></create-listing>
     </dialog-window>
   </q-page>

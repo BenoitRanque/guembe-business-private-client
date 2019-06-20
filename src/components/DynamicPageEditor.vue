@@ -17,11 +17,7 @@
         Eliminar seccion
       </q-tooltip>
     </q-btn>
-    <dialog-window v-model="showUpdatePageDialog">
-      <template v-slot:title>
-        Editar Pagina
-      </template>
-
+    <dialog-window v-model="showUpdatePageDialog" title="Editar Elemento">
       <q-form @submit="submit" @reset="reset" class="q-pa-md">
         <div class="q-gutter-y-md">
           <q-input

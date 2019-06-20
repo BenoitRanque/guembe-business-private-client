@@ -58,10 +58,7 @@
     <q-inner-loading :showing="loading">
       <q-spinner></q-spinner>
     </q-inner-loading>
-    <dialog-window v-model="showCreatePageDialog">
-      <template v-slot:title>
-        Crear Pagina
-      </template>
+    <dialog-window v-model="showCreatePageDialog" title="Crear Pagina">
       <create-page @done="page => $router.push(`/website/preview/${page.path}`)" />
     </dialog-window>
   </q-page>

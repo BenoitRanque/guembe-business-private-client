@@ -43,11 +43,10 @@ class GraphQL extends Function {
   }
 
   handleError (error) {
-    console.log(error)
     if (error instanceof GraphQLError) {
       error.display()
     } else {
-      throw error
+      this.api.handleError(error)
     }
   }
 }
@@ -57,6 +56,18 @@ const api = axios.create({
   timeout: 1000,
   withCredentials: true
 })
+
+api.handleError = function handleError (error) {
+  console.log(error.response)
+  if (error.response && error.response.data) {
+    Notify.create({
+      message: error.response.data,
+      color: 'negative',
+      icon: 'mdi-alert-octagon'
+    })
+  }
+  throw error
+}
 
 api.interceptors.request.use(async request => {
   const sessionCookie = SessionStorage.getItem('session-auth')

@@ -8,32 +8,39 @@
     Seccion
     {{section.index + 1}}
     <q-btn flat dense icon="mdi-plus" @click="addElement">
-        <q-tooltip>
-          Aggregar Elemento
-        </q-tooltip>
-      </q-btn>
+      <q-tooltip>
+        Aggregar Elemento
+      </q-tooltip>
+    </q-btn>
+    <q-btn flat dense :icon="`mdi-arrow-${section.fullwidth ? 'collapse' : 'expand'}-horizontal`">
+      <q-tooltip>
+        {{section.fullwidth ? 'Anchura Normal' : 'Anchura Completa'}}
+      </q-tooltip>
+    </q-btn>
+    <q-btn flat dense icon="mdi-arrow-expand-all">
+      <q-tooltip>
+        Aggregar Elemento
+      </q-tooltip>
+    </q-btn>
     <q-space></q-space>
-    <!-- <q-btn-group flat>
-      <q-btn flat icon="mdi-chevron-down" dense>
+    <q-btn-group flat>
+      <q-btn flat icon="mdi-chevron-down" dense :disable="!canMoveDown" :loading="movingDown" @click="moveDown">
         <q-tooltip>
           Bajar
         </q-tooltip>
       </q-btn>
-      <q-btn flat icon="mdi-chevron-up" dense>
+      <q-btn flat icon="mdi-chevron-up" dense :disable="!canMoveUp" :loading="movingUp" @click="moveUp">
         <q-tooltip>
           Subir
         </q-tooltip>
       </q-btn>
-    </q-btn-group> -->
+    </q-btn-group>
     <q-btn flat dense icon="mdi-delete" @click="removeSection">
       <q-tooltip>
         Eliminar seccion
       </q-tooltip>
     </q-btn>
-    <dialog-window v-model="showUpdateSectionDialog">
-      <template v-slot:title>
-        Editar Seccion
-      </template>
+    <dialog-window v-model="showUpdateSectionDialog" title="Editar Seccion">
       <q-btn flat dense icon="mdi-plus" @click="addElement">
         <q-tooltip>
           Aggregar Elemento
@@ -49,6 +56,10 @@ export default {
   name: 'DynamicSectionEditor',
   components: { DialogWindow },
   props: {
+    page: {
+      type: Object,
+      required: true
+    },
     section: {
       type: Object,
       required: true
@@ -56,10 +67,66 @@ export default {
   },
   data () {
     return {
+      movingUp: false,
+      movingDown: false,
       showUpdateSectionDialog: false
     }
   },
+  computed: {
+    nextIndex () {
+      const greaterIndexes = this.page.sections.map(({ index }) => index).filter(index => index > this.section.index)
+      if (!greaterIndexes.length) return null
+      return Math.min(...greaterIndexes)
+    },
+    previousIndex () {
+      const lesserIndexes = this.page.sections.map(({ index }) => index).filter(index => index < this.section.index)
+      if (!lesserIndexes.length) return null
+      return Math.max(...lesserIndexes)
+    },
+    canMoveDown () {
+      return this.nextIndex !== null
+    },
+    canMoveUp () {
+      return this.previousIndex !== null
+    }
+  },
   methods: {
+    async moveDown () {
+      if (!this.canMoveDown) return
+
+      try {
+        this.movingDown = true
+
+        await this.$store.dispatch('website/SWAP_PAGE_SECTIONS', {
+          page_id: this.page.page_id,
+          index_a: this.section.index,
+          index_b: this.nextIndex
+        })
+        await this.$store.dispatch('website/LOAD_PAGE')
+      } catch (error) {
+        this.$api.handleError(error)
+      } finally {
+        this.movingDown = false
+      }
+    },
+    async moveUp () {
+      if (!this.canMoveUp) return
+
+      try {
+        this.movingUp = true
+
+        await this.$store.dispatch('website/SWAP_PAGE_SECTIONS', {
+          page_id: this.section.page_id,
+          index_a: this.section.index,
+          index_b: this.previousIndex
+        })
+        await this.$store.dispatch('website/LOAD_PAGE')
+      } catch (error) {
+        this.$api.handleError(error)
+      } finally {
+        this.movingUp = false
+      }
+    },
     removeSection () {
       this.$q.dialog({
         title: 'Eliminar Seccion',

@@ -1,4 +1,4 @@
-import { gql } from 'src/boot/api'
+import { gql, api } from 'src/boot/api'
 
 export async function INITIALIZE_WEBSITE_STORE ({ commit }) {
   const query = /* GraphQL */`query {
@@ -47,7 +47,7 @@ export async function IMAGE (ctx, image_id) {
   return image
 }
 
-export async function LOAD_PAGE ({ commit, state }, { path = null } = { }) {
+export async function LOAD_PAGE ({ commit, state }, { path = '' } = { path: null }) {
   const query = /* GraphQL */`query ($where: website_page_bool_exp $locale_id: String!) {
     pages: website_page (where: $where) {
       page_id
@@ -95,11 +95,13 @@ export async function LOAD_PAGE ({ commit, state }, { path = null } = { }) {
     }
   }`
 
+  console.log('loading page for path', path)
+
   const variables = {
     locale_id: state.locale,
     where: {
       path: {
-        _eq: path === null ? state.page.path : path
+        _eq: path === null && state.page ? state.page.path : path
       }
     }
   }
@@ -317,4 +319,11 @@ export async function UPDATE_ELEMENT_I18N (ctx, { where, _set }) {
   console.log('updating i18n', where, _set)
 
   return gql(query, variables, { role: 'administrator' })
+}
+
+export async function SWAP_PAGE_SECTIONS (ctx, { page_id, index_a, index_b }) {
+  await api.post('/website/swapPageSections', { page_id, index_a, index_b })
+}
+export async function SWAP_SECTION_ELEMENTS (ctx, { section_id, index_a, index_b }) {
+  await api.post('/website/swapSectionElements', { section_id, index_a, index_b })
 }

@@ -2,10 +2,7 @@
   <q-page>
     <q-btn @click="showCreateHolidayDialog = true">Crear Feriado nuevo</q-btn>
     <pre>{{holidays}}</pre>
-    <dialog-window v-model="showCreateHolidayDialog">
-      <template v-slot:title>
-        Crear Feriado
-      </template>
+    <dialog-window v-model="showCreateHolidayDialog" title="Crear Feriados">
       <create-holiday class="scroll"></create-holiday>
     </dialog-window>
   </q-page>

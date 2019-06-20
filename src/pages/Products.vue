@@ -24,10 +24,7 @@
       <q-spinner></q-spinner>
     </q-inner-loading>
 
-    <dialog-window v-model="showCreateProductDialog">
-      <template v-slot:title>
-        Crear Producto
-      </template>
+    <dialog-window v-model="showCreateProductDialog" title="Crear Producto">
       <create-product></create-product>
     </dialog-window>
   </q-page>

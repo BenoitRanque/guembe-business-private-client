@@ -23,10 +23,7 @@
     <q-inner-loading :showing="loading">
       <q-spinner></q-spinner>
     </q-inner-loading>
-    <dialog-window v-model="showCreateLifetimeDialog">
-      <template v-slot:title>
-        Crear Vigencia
-      </template>
+    <dialog-window v-model="showCreateLifetimeDialog" title="Crear Vigencia">
       <create-lifetime></create-lifetime>
     </dialog-window>
   </q-page>

@@ -9,12 +9,12 @@
       <dynamic-section v-for="(section, index) in page.sections" :key="`section_${index}`" :section="section">
         <dynamic-element v-for="(element, index) in section.elements" :key="`element_${index}`" :element="element">
           <template v-slot:editor>
-            <dynamic-element-editor :element="element"></dynamic-element-editor>
+            <dynamic-element-editor :element="element" :section="section"></dynamic-element-editor>
           </template>
         </dynamic-element>
         <template v-slot:editor>
           <q-card class="q-mb-md">
-            <dynamic-section-editor :section="section"></dynamic-section-editor>
+            <dynamic-section-editor :section="section" :page="page"></dynamic-section-editor>
           </q-card>
         </template>
       </dynamic-section>
