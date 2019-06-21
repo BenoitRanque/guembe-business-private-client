@@ -77,6 +77,9 @@ export default {
         return this.maximized ? 'maximize' : 'restore'
       }
       return this.maximized ? 'restore' : 'maximize'
+    },
+    nextSlot () {
+      return Math.min(...this.minimized.slots.map((slot, index) => index).filter(slot => !this.minimized.slots.includes(slot)), this.minimized.slots.length)
     }
   },
   methods: {
@@ -87,13 +90,11 @@ export default {
     },
     bindSlot () {
       // when minimized
-      this.minimized.slot = this.minimized.slots.sort((a, b) => a - b)
-        .reduce((acc, slot, index) => slot !== index && index < acc ? index : acc, this.minimized.slots.lenght)
+      this.minimized.slot = this.nextSlot
 
-      this.$root.$emit('DIALOG_WINDOW_MINMIZED', this.minimized.slot)
+      this.$root.$emit('DIALOG_WINDOW_MINIMIZED', this.minimized.slot)
     },
     onBindSlot (slotIndex) {
-      console.log('binding slot', slotIndex)
       this.minimized.slots.push(slotIndex)
     },
     onUnbindSlot (slotIndex) {
