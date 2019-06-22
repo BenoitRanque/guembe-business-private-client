@@ -2,7 +2,7 @@
   <q-page>
     <dynamic-page v-if="page" :page="page">
       <template v-slot:editor>
-        <div class="dynamic-section q-px-md q-my-md">
+        <div class="section-maxwidth q-mx-auto q-px-md q-my-md">
           <q-card class="q-my-md">
             <dynamic-page-editor :page="page"></dynamic-page-editor>
           </q-card>

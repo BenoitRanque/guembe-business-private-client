@@ -1,5 +1,5 @@
 <template>
-  <section :class="section.fullwidth ? 'q-mb-md' : 'dynamic-section q-px-md q-my-md'">
+  <section :class="section.fullwidth ? 'q-mb-md' : 'section-maxwidth q-mx-auto q-px-md q-my-md'">
     <slot name="editor" />
     <div class="row wrap q-col-gutter-md">
       <slot />
@@ -20,8 +20,6 @@ export default {
 </script>
 
 <style lang="stylus">
-  .dynamic-section
-    margin-left auto
-    margin-right auto
+  .section-maxwidth
     max-width 992px
 </style>
