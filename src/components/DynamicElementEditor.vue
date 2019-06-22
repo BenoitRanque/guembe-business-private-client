@@ -1,19 +1,19 @@
 <template>
   <q-bar>
-    <q-btn @click="showUpdateElementDialog = true" flat dense icon="mdi-pencil">
-      <q-tooltip>
-        Editar Contenido
-      </q-tooltip>
-    </q-btn>
     <q-btn-group flat>
-      <q-btn @click="decreaseSize" flat icon="mdi-magnify-minus-outline" dense>
+      <q-btn @click="showUpdateElementDialog = true" flat dense icon="mdi-pencil">
         <q-tooltip>
-          Disminuir tamaño
+          Editar Contenido
         </q-tooltip>
       </q-btn>
-      <q-btn @click="increaseSize" flat icon="mdi-magnify-plus-outline" dense>
+      <q-btn @click="increaseSize" flat icon="mdi-arrow-expand-all" dense>
         <q-tooltip>
           Aumentar tamaño
+        </q-tooltip>
+      </q-btn>
+      <q-btn @click="decreaseSize" flat icon="mdi-arrow-collapse-all" dense>
+        <q-tooltip>
+          Disminuir tamaño
         </q-tooltip>
       </q-btn>
     </q-btn-group>
@@ -29,12 +29,12 @@
           Subir
         </q-tooltip>
       </q-btn>
+      <q-btn flat dense icon="mdi-delete" @click="deleteElement">
+        <q-tooltip>
+          Eliminar elemento
+        </q-tooltip>
+      </q-btn>
     </q-btn-group>
-    <q-btn flat dense icon="mdi-delete" @click="deleteElement">
-      <q-tooltip>
-        Eliminar elemento
-      </q-tooltip>
-    </q-btn>
     <dialog-window v-model="showUpdateElementDialog" title="Editar Elemento">
       <q-tabs dense v-model="tab">
         <q-tab name="element" label="Elemento"></q-tab>

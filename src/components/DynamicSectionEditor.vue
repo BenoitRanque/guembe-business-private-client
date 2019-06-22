@@ -7,21 +7,23 @@
     </q-btn> -->
     Seccion
     {{section.index + 1}}
-    <q-btn flat dense icon="mdi-plus" @click="addElement">
-      <q-tooltip>
-        Aggregar Elemento
-      </q-tooltip>
-    </q-btn>
-    <q-btn flat dense :icon="`mdi-arrow-${section.fullwidth ? 'collapse' : 'expand'}-horizontal`">
-      <q-tooltip>
-        {{section.fullwidth ? 'Anchura Normal' : 'Anchura Completa'}}
-      </q-tooltip>
-    </q-btn>
-    <q-btn flat dense icon="mdi-arrow-expand-all">
-      <q-tooltip>
-        Aggregar Elemento
-      </q-tooltip>
-    </q-btn>
+    <q-btn-group flat>
+      <q-btn
+        flat
+        dense
+        @click="update({ fullwidth: !section.fullwidth })"
+        :icon="`mdi-arrow-${section.fullwidth ? 'collapse' : 'expand'}-horizontal`"
+      >
+        <q-tooltip>
+          {{section.fullwidth ? 'Anchura Normal' : 'Anchura Completa'}}
+        </q-tooltip>
+      </q-btn>
+      <q-btn flat dense icon="mdi-plus" @click="addElement">
+        <q-tooltip>
+          Aggregar Elemento
+        </q-tooltip>
+      </q-btn>
+    </q-btn-group>
     <q-space></q-space>
     <q-btn-group flat>
       <q-btn flat icon="mdi-chevron-down" dense :disable="!canMoveDown" :loading="movingDown" @click="moveDown">
@@ -91,6 +93,14 @@ export default {
     }
   },
   methods: {
+    async update (update) {
+      try {
+        await this.$store.dispatch('website/UPDATE_SECTION', { _set: update, where: { section_id: { _eq: this.section.section_id } } })
+        await this.$store.dispatch('website/LOAD_PAGE')
+      } catch (error) {
+        this.$gql.handleError(error)
+      }
+    },
     async moveDown () {
       if (!this.canMoveDown) return
 
