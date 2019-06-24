@@ -1,87 +1,70 @@
 <template>
-  <q-form @submit="submit" @reset="reset">
-    <div class="q-gutter-md q-pa-md">
-      <q-input
-        filled
-        required
-        label="Nombre Privado"
-        hint="Nombre de uso interno"
-        v-model="lifetime.private_name"
-        lazy-rules
-        :rules="[
-          value => value && value.length > 0 ? true : 'Campo Obligatorio'
-        ]"
-      ></q-input>
-      <q-input
-        filled
-        required
-        label="Nombre Publico"
-        hint="Nombre de uso publico"
-        v-model="lifetime.public_name"
-      ></q-input>
-      <q-input
-        filled
-        required
-        type="textarea"
-        label="Descripcion"
-        hint="Descripcion detallada. Uso publico & interno"
-        v-model="lifetime.description"
-      ></q-input>
-      <q-input
-        filled
-        required
-        v-model="lifetime.start"
-        label="Inicio de vigencia"
-        hint="El vigencia sera valido a partir de esta fecha"
-        lazy-rules
-        mask="date"
-        :rules="[
-          'date'
-        ]"
-      >
-        <template v-slot:append>
-          <q-icon name="mdi-calendar" class="cursor-pointer">
-            <q-popup-proxy>
-              <q-date today-btn v-model="lifetime.start" />
-            </q-popup-proxy>
-          </q-icon>
-        </template>
-      </q-input>
-      <q-input
-        filled
-        v-model="lifetime.end"
-        label="Fin de vigencia"
-        hint="El vigencia sera valido hasta esta fecha"
-        lazy-rules
-        mask="date"
-        :rules="[
-          value => value !== null ? true : 'Campo Obligatorio',
-          'date',
-          value => lifetime.start !== null && new Date(value) >= new Date(lifetime.start) ? true : 'Fin de tiempo de validez debe ser igual o superio a inicio de validez'
-        ]"
-      >
-        <template v-slot:append>
-          <q-icon name="mdi-calendar" class="cursor-pointer">
-            <q-popup-proxy>
-              <q-date today-btn v-model="lifetime.end" />
-            </q-popup-proxy>
-          </q-icon>
-        </template>
-      </q-input>
-      <q-select
-        filled
-        label="Dias de validez"
-        hint="La vigencia sera valida para estos dias"
-        v-model="lifetime.lifetime_weekdays"
-        :options="options.weekdays"
-        multiple
-        lazy-rules
-        :rules="[
-          value => value.length > 0 ? true : 'Debe selecionar algunos dias de validez'
-        ]"
-      ></q-select>
-      <q-checkbox v-model="lifetime.include_holidays" label="Incluye Feriados"></q-checkbox>
-    </div>
+  <q-form @submit="submit" @reset="reset" class="q-gutter-y-md">
+    <q-input
+      filled
+      required
+      label="Nombre Privado"
+      hint="Nombre de uso interno"
+      v-model="lifetime.name"
+      lazy-rules
+      :rules="[
+        value => value && value.length > 0 ? true : 'Campo Obligatorio'
+      ]"
+    ></q-input>
+    <q-input
+      filled
+      required
+      v-model="lifetime.start"
+      label="Inicio de vigencia"
+      hint="El vigencia sera valido a partir de esta fecha"
+      lazy-rules
+      mask="date"
+      :rules="[
+        'date'
+      ]"
+    >
+      <template v-slot:append>
+        <q-icon name="mdi-calendar" class="cursor-pointer">
+          <q-popup-proxy>
+            <q-date today-btn v-model="lifetime.start" />
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+    <q-input
+      filled
+      v-model="lifetime.end"
+      label="Fin de vigencia"
+      hint="El vigencia sera valido hasta esta fecha"
+      lazy-rules
+      mask="date"
+      :rules="[
+        value => value !== null ? true : 'Campo Obligatorio',
+        'date',
+        value => lifetime.start !== null && new Date(value) >= new Date(lifetime.start) ? true : 'Fin de tiempo de validez debe ser igual o superio a inicio de validez'
+      ]"
+    >
+      <template v-slot:append>
+        <q-icon name="mdi-calendar" class="cursor-pointer">
+          <q-popup-proxy>
+            <q-date today-btn v-model="lifetime.end" />
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+    <q-select
+      filled
+      label="Dias de validez"
+      hint="La vigencia sera valida para estos dias"
+      v-model="lifetime.lifetime_weekdays"
+      :options="options.weekdays"
+      multiple
+      lazy-rules
+      :rules="[
+        value => value.length > 0 ? true : 'Debe selecionar algunos dias de validez'
+      ]"
+    ></q-select>
+    <q-checkbox v-model="lifetime.include_holidays" label="Incluye Feriados"></q-checkbox>
 
     <q-separator></q-separator>
     <div class="row justify-around q-pa-md">
@@ -104,9 +87,7 @@ export default {
         weekdays: []
       },
       lifetime: {
-        public_name: '',
-        private_name: '',
-        description: '',
+        name: '',
         lifetime_weekdays: [],
         start: null,
         end: null,
@@ -116,9 +97,7 @@ export default {
   },
   methods: {
     reset () {
-      this.lifetime.public_name = ''
-      this.lifetime.private_name = ''
-      this.lifetime.description = ''
+      this.lifetime.name = ''
       this.lifetime.lifetime_weekdays = []
       this.lifetime.start = null
       this.lifetime.end = null
@@ -138,7 +117,7 @@ export default {
           affected_rows
           lifetimes: returning {
             id: lifetime_id
-            name: private_name
+            name
           }
         }
       }`
@@ -169,10 +148,11 @@ export default {
       const query = /* GraphQL */`query {
         weekdays: calendar_weekday {
           value: weekday_id
-          label: description
+          label: name
         }
       }`
-      const variables = {}
+      const variables = {
+      }
 
       try {
         this.loading = true

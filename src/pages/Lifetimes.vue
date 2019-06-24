@@ -48,9 +48,7 @@ export default {
       const query = /* GraphQL */`query {
         data: calendar_lifetime (order_by: { end: desc }) {
           lifetime_id
-          private_name
-          public_name
-          description
+          name
         }
       }`
 

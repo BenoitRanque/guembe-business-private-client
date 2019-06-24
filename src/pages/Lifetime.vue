@@ -27,14 +27,12 @@ export default {
       const query = /* GraphQL */`query ($lifetime_id: uuid!) {
         data: calendar_lifetime_by_pk (lifetime_id: $lifetime_id) {
           lifetime_id
-          public_name
-          private_name
-          description
+          name
           start
           end
           lifetime_weekdays {
             weekday {
-              description
+              name
             }
           }
           created_at

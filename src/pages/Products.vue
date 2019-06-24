@@ -12,11 +12,11 @@
       >
         <q-item-section>
           <q-item-label :lines="1">
-            {{product.public_name}}
+            {{product.name}}
           </q-item-label>
-          <q-item-label caption :lines="2">
+          <!-- <q-item-label caption :lines="2">
             {{product.description}}
-          </q-item-label>
+          </q-item-label> -->
         </q-item-section>
       </q-item>
     </q-list>
@@ -47,11 +47,9 @@ export default {
   methods: {
     async refreshData () {
       const query = /* GraphQL */`query {
-        data: store_product (order_by: { created_at: desc }) {
+        data: webstore_product (order_by: { created_at: desc }) {
           product_id
-          private_name
-          public_name
-          description
+          name
         }
       }`
 

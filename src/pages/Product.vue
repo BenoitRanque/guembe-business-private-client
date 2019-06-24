@@ -25,13 +25,11 @@ export default {
   methods: {
     async loadData () {
       const query = /* GraphQL */`query ($product_id: uuid!) {
-        data: store_product_by_pk (product_id: $product_id) {
+        data: webstore_product_by_pk (product_id: $product_id) {
           product_id
-          public_name
-          private_name
-          description
+          name
           economic_activity {
-            description
+            name
           }
           internal_product_id
           created_at

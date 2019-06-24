@@ -25,7 +25,7 @@ export default {
       const query = /* GraphQL */`query ($holiday_id: uuid!) {
         holiday: calendar_holiday_by_pk (holiday_id: $holiday_id) {
           holiday_id
-          private_name
+          name
           date
         }
       }`

@@ -6,7 +6,7 @@
     persistent
     :seamless="minimized.state"
     :position="minimized.state ? 'bottom' : 'standard'"
-    :content-class="minimized.state ? 'dialog-window-minimized' : null"
+    :content-class="minimized.state ? 'dialog-window-minimized q-pa-none' : null"
     :transition-hide="minimized.state ? 'slide-down' : 'scale'"
     @hide="reset"
   >
@@ -25,26 +25,22 @@
         <q-btn flat dense icon="mdi-close" v-close-popup @click.stop.prevent></q-btn>
       </q-btn-group>
     </q-bar>
-    <q-layout v-else container view="hHh lpr fff" style="min-height: 30vh">
-        <q-header>
-          <q-bar>
-            <div class="ellipsis">
-              {{title}}
-            </div>
-            <q-space />
-            <q-btn flat dense :icon="`mdi-window-minimize`" class="window-minimize" @click="minimize"></q-btn>
-            <q-btn flat dense :icon="`mdi-window-${maximized ? 'restore' : 'maximize'}`" @click="toggle"></q-btn>
-            <!-- <q-btn flat dense :icon="`mdi-arrow-${maximized ? 'collapse' : 'expand'}-all`" @click="maximized = !maximized"></q-btn> -->
-            <q-btn flat dense icon="mdi-close" v-close-popup></q-btn>
-          </q-bar>
-        </q-header>
-
-        <q-page-container>
-          <q-page class="bg-white">
-            <slot name="default"></slot>
-          </q-page>
-        </q-page-container>
-      </q-layout>
+    <template v-else>
+      <div class="bg-white" :style="maximized ? '' : 'max-width: none; min-width: 560px'">
+        <q-bar class="bg-primary text-white">
+          <div class="ellipsis">
+            {{title}}
+          </div>
+          <q-space />
+          <q-btn flat dense :icon="`mdi-window-minimize`" class="window-minimize" @click="minimize"></q-btn>
+          <q-btn flat dense :icon="`mdi-window-${maximized ? 'restore' : 'maximize'}`" @click="toggle"></q-btn>
+          <q-btn flat dense icon="mdi-close" v-close-popup></q-btn>
+        </q-bar>
+        <main class="scroll" :style="maximized ? 'max-height: calc(100vh - 32px);' : 'max-height: calc(100vh - 80px);'">
+          <slot name="default"></slot>
+        </main>
+      </div>
+    </template>
     </q-dialog>
 </template>
 
@@ -106,6 +102,7 @@ export default {
       if (this.minimized.slot !== null) {
         this.unbindSlot()
       }
+      this.minimized.state = false
     },
     minimize () {
       this.bindSlot()

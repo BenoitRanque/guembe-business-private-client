@@ -6,22 +6,7 @@
         required
         label="Nombre Privado"
         hint="Nombre de uso interno"
-        v-model="holiday.private_name"
-      ></q-input>
-      <q-input
-        filled
-        required
-        label="Nombre Publico"
-        hint="Nombre de uso publico"
-        v-model="holiday.public_name"
-      ></q-input>
-      <q-input
-        filled
-        required
-        type="textarea"
-        label="Descripcion"
-        hint="Descripcion detallada. Uso publico & interno"
-        v-model="holiday.description"
+        v-model="holiday.name"
       ></q-input>
       <q-input
         filled
@@ -31,10 +16,7 @@
         lazy-rules
         required
         mask="date"
-        :rules="[
-          value => value !== null ? true : 'Campo Obligatorio',
-          'date'
-        ]"
+        :rules="['date']"
       >
         <template v-slot:append>
           <q-icon name="mdi-calendar" class="cursor-pointer">
@@ -64,18 +46,14 @@ export default {
     return {
       loading: false,
       holiday: {
-        public_name: '',
-        private_name: '',
-        description: '',
+        name: '',
         date: null
       }
     }
   },
   methods: {
     reset () {
-      this.holiday.public_name = ''
-      this.holiday.private_name = ''
-      this.holiday.description = ''
+      this.holiday.name = ''
       this.holiday.date = null
     },
     submit () {
@@ -92,7 +70,7 @@ export default {
           affected_rows
           holidays: returning {
             id: holiday_id
-            name: private_name
+            name
           }
         }
       }`

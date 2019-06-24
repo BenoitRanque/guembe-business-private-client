@@ -3,13 +3,7 @@
     <div class="row q-col-gutter-md" v-if="listing">
       <div class="col-8">
         <div class="text-h6">
-          {{listing.private_name}}
-        </div>
-        <div class="text-subtitle1">
-          {{listing.public_name}}
-        </div>
-        <div class="text-subtitle2">
-          {{listing.description}}
+          {{listing.name}}
         </div>
         <div class="text-subtitle2">
           Disponible Desde: {{listing.available_from}}
@@ -17,8 +11,9 @@
         <div class="text-subtitle2">
           Disponible Hasta: {{listing.available_to}}
         </div>
-        <template v-if="listing.listing_stock">
-          <div class="text-subtitle2">
+        <template v-if="listing.inventory">
+          <pre>{{listing.inventory}}</pre>
+          <!-- <div class="text-subtitle2">
             Stock Disponible: {{listing.listing_stock.available_stock}}
           </div>
           <div class="text-subtitle2">
@@ -26,7 +21,7 @@
           </div>
           <div class="text-subtitle2">
             Stock Restante: {{listing.listing_stock.remaining_stock}}
-          </div>
+          </div> -->
         </template>
         <q-markup-table flat class="relative-position">
           <thead>
@@ -40,7 +35,7 @@
           <tbody>
             <tr v-for="(item, index) in listing.listing_products" :key="index">
               <td>
-                {{item.product.private_name}}
+                {{item.product.name}}
               </td>
               <td>
                 {{(item.price / 100).toFixed(2)}}
@@ -49,7 +44,7 @@
                 {{item.quantity}}
               </td>
               <td>
-                {{item.lifetime.private_name}}
+                {{item.lifetime.name}}
               </td>
             </tr>
           </tbody>
@@ -191,33 +186,27 @@ export default {
     },
     async loadData () {
       const query = /* GraphQL */`query ($listing_id: uuid!) {
-        data: store_listing_by_pk (listing_id: $listing_id) {
+        data: webstore_listing_by_pk (listing_id: $listing_id) {
           listing_id
-          public_name
-          private_name
-          description
+          name
           available_from
           available_to
-          available_stock
-          listing_stock {
-            available_stock
-            remaining_stock
-            used_stock
+          supply
+          inventory {
+            supply
+            used
+            remaining
+            available
           }
           listing_products {
             product {
-              private_name
+              name
             }
             price
             quantity
             lifetime {
-              private_name
+              name
             }
-          }
-          listing_images (order_by: { created_at: desc }) {
-            image_id
-            name
-            highlighted
           }
         }
       }`

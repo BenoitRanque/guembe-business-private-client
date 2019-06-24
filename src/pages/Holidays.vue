@@ -26,9 +26,8 @@ export default {
     async loadHolidays () {
       const query = /* GraphQL */`query {
         holidays: calendar_holiday {
-          public_name
-          private_name
-          description
+          holiday_id
+          name
           date
         }
       }`
