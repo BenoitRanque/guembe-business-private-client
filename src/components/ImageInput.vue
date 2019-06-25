@@ -1,21 +1,21 @@
 <template>
-  <q-field v-bind="$attrs" :value="value" @input="$event  => $emit('input', $event)">
+  <q-field v-bind="$attrs" :value="value" @input="$event  => $emit('input', $event)" @click.native="showImageSelectDialog = true">
     <template v-slot:prepend>
-      <q-avatar rounded color="grey-4" :class="image ? 'cursor-pointer' : ''" @click="showImagePreviewDialog = true">
+      <q-avatar rounded color="grey-4" :class="image ? 'cursor-pointer' : ''" @click.stop="showImagePreviewDialog = true">
         <q-img v-if="image" :src="$img.src(image.image_id, 'xs')" :placeholder="value.placeholder"></q-img>
       </q-avatar>
     </template>
     <template v-slot:control>
-      <div class="cursor-pointer col self-stretch row items-center" @click="showImageSelectDialog = true">
+      <div class="cursor-pointer col self-stretch row items-center">
         {{image ? image.name : null}}
       </div>
     </template>
     <template v-slot:append>
-      <q-btn icon="mdi-image-search" dense flat @click="showImageSelectDialog = true">
+      <q-icon name="mdi-image-search">
         <q-tooltip>
           {{ image ? 'Cambiar' : 'Seleccionar'}} Imagen
         </q-tooltip>
-      </q-btn>
+      </q-icon>
     </template>
     <dialog-window v-model="showImageSelectDialog" title="Selecionar Imagen">
       <image-select @done="imageSelected" :format="format">
