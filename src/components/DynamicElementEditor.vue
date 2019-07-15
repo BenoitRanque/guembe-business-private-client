@@ -42,10 +42,10 @@
       </q-tabs>
       <q-tab-panels v-model="tab">
         <q-tab-panel name="element">
-          <update-element :element="element" @done="showUpdateElementDialog = false"></update-element>
+          <update-element :element="element" @done="() => {}"></update-element>
         </q-tab-panel>
         <q-tab-panel name="i18n">
-          <update-element-i18n :element="element" @done="showUpdateElementDialog = false"></update-element-i18n>
+          <update-element-i18n :element="element" @done="() => {}"></update-element-i18n>
         </q-tab-panel>
       </q-tab-panels>
     </dialog-window>

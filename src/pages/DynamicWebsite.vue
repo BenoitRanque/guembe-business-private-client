@@ -14,6 +14,9 @@
     <q-inner-loading :showing="!page">
       <q-spinner></q-spinner>
     </q-inner-loading>
+    <q-page-sticky position="top-left" :offset="[16, 16]">
+      <q-btn icon="mdi-view-list" color="white" text-color="black" size="sm" round @click="$router.push(`/website`)"/>
+    </q-page-sticky>
     <q-page-sticky position="top-right" :offset="[16, 16]">
       <q-btn icon="mdi-pencil" color="white" text-color="black" size="sm" round @click="$router.push(`/website/editor/${path}`)"/>
     </q-page-sticky>

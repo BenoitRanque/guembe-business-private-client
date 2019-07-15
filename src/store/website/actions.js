@@ -96,8 +96,6 @@ export async function LOAD_PAGE ({ commit, state }, { path = '' } = { path: null
     }
   }`
 
-  console.log('loading page for path', path)
-
   const variables = {
     locale_id: state.locale,
     where: {
@@ -317,7 +315,6 @@ export async function UPDATE_ELEMENT_I18N (ctx, { where, _set }) {
   }`
 
   const variables = { where, _set }
-  console.log('updating i18n', where, _set)
 
   return gql(query, variables, { role: 'administrator' })
 }

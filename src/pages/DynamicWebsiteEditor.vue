@@ -33,6 +33,9 @@
     <q-inner-loading v-else :showing="true">
       <q-spinner></q-spinner>
     </q-inner-loading>
+    <q-page-sticky position="top-left" :offset="[16, 16]">
+      <q-btn icon="mdi-view-list" color="white" text-color="black" size="sm" round @click="$router.push(`/website`)"/>
+    </q-page-sticky>
     <q-page-sticky position="top-right" :offset="[16, 16]">
       <q-btn icon="mdi-check" color="white" text-color="black" size="sm" round @click="$router.push(`/website/preview/${path}`)"/>
     </q-page-sticky>

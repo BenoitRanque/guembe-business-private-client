@@ -100,10 +100,10 @@ export default {
       }
     },
     async submit (confirmed = false) {
-      if (!this.locale && !confirmed) {
+      if (!this.locale && confirmed !== true) {
         return this.$q.dialog({
           title: 'No a seleccionado nigun idioma',
-          message: 'Si continua, se guardara para todos los idioma.',
+          message: 'Si continua, se guardaran los cambios para todos los idioma.',
           cancel: true
         }).onOk(() => {
           this.submit(true)

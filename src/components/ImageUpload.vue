@@ -45,7 +45,7 @@ export default {
       return this.selectedFormat ? this.selectedFormat.value : null
     },
     url () {
-      return `https://chuturubi.com/api/v1/upload/image?format=${this.uploadFormat}`
+      return `${process.env.DEV ? 'https://chuturubi.com' : ''}/api/v1/upload/image?format=${this.uploadFormat}`
     },
     headers () {
       return [{

@@ -72,7 +72,7 @@
     >
       <q-list>
         <q-item-label header>Menu principal</q-item-label>
-        <q-item to="/holidays">
+        <!-- <q-item to="/holidays">
           <q-item-section>
             <q-item-label>
               Feriados
@@ -134,7 +134,7 @@
               Uso de productos Comprados
             </q-item-label>
           </q-item-section>
-        </q-item>
+        </q-item> -->
         <q-item to="/website">
           <q-item-section>
             <q-item-label>

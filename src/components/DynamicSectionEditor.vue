@@ -126,7 +126,7 @@ export default {
         this.movingUp = true
 
         await this.$store.dispatch('website/SWAP_PAGE_SECTIONS', {
-          page_id: this.section.page_id,
+          page_id: this.page.page_id,
           index_a: this.section.index,
           index_b: this.previousIndex
         })

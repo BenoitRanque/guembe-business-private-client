@@ -50,7 +50,7 @@ export default {
   methods: {
     async updatedPasword () {
       const query = /* GraphQL */`mutation ($password: String! $user_id: uuid!) {
-        user: update_staff_user (where: {
+        user: update_account_user (where: {
           user_id: {
             _eq: $user_id
           }

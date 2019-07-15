@@ -163,10 +163,19 @@ export default {
     reset () {
       if (this.element.external_link) {
         this.mode = LINK_EXTERNAL
+        this.external = this.element.external_link
       } else if (this.element.internal_link) {
         this.mode = LINK_INTERNAL
+        this.internal = {
+          value: this.element.internal_link,
+          label: (this.options.internal.find(opt => opt.value === this.element.internal_link) || { label: this.element.internal_link }).label
+        }
       } else if (this.element.listing_link) {
         this.mode = LINK_LISTING
+        this.listing = {
+          value: this.element.listing,
+          label: (this.options.listing.find(opt => opt.value === this.element.listing_link) || { label: this.element.listing_link }).label
+        }
       } else {
         this.mode = LINK_NONE
       }
@@ -183,6 +192,8 @@ export default {
             ...this.updateLinks
           }
         })
+        this.$q.notify({ color: 'positive', icon: 'mdi-check', message: 'Actualizado Exitosamente' })
+
         await this.$store.dispatch('website/LOAD_PAGE')
 
         this.$emit('done')
